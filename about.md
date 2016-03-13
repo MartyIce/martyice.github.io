@@ -4,12 +4,8 @@ title: About
 permalink: /about/
 ---
 
-Some information about you!
-
-### More Information
-
-A place to include any other types of information that you'd like to include about yourself.
+Software developer for a living, and love it enough to do it in my free time.  Play all kinds of music, listen to tons too.  Wife and I have 4 little ones, and that's where most of my time goes.
 
 ### Contact me
 
-[email@domain.com](mailto:email@domain.com)
+[marty.mavis@gmail.com](mailto:marty.mavis@gmail.com)
