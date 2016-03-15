@@ -3,13 +3,13 @@ layout: post
 title: Hello (Again) World!
 ---
 
-Time to start YAB (Yet Another Blog)!  I've made several half-assed efforts over the years to start a blog, and each one tends to fizzle out very quickly after inception.  Here's why:
+Time to start YAB (Yet Another Blog)!  I've made several half-assed efforts over the years to start a blog, and each one fizzled out very quickly after inception.  Here's why:
 
-1. *"No time to work on it"* - There IS time of course, but I choose spend it on other things.  Hard to fix this one, but life is one big exercise in time management, and I'm always working on it.  Surely I can find the time *somewhere*.
+1. *"No time to work on it"* - There IS time of course, but I choose spend it on other things.  Hard to fix this one, but life is one big exercise in time management, and I'm always trying to improve.  Surely I can find the time *somewhere*.
 
-2. *"Nothing interesting to write about"* - What I know is the tip of the iceberg, what I don't know is under the surface.  Plenty to write about all around.  Poor excuse!
+2. *"Nothing interesting to write about"* - What I know is the tip of the iceberg, what I don't know is under the surface.  Plenty to write about, all around.  Poor excuse!
 
-3. *"I can't write"* - I try to be funny and entertaining, am not happy with the quality of the humor, and get discouraged.  Hoping with time and practice, I whittle away the garbage, leaving a finely-tuned, prose wonderland.
+3. *"I can't write"* - I try to be funny and entertaining, am not happy with the quality of the humor, and get discouraged.  Hoping that with time and practice, I whittle away the garbage, leaving a finely-tuned, prose wonderland.
 
 4. *"Nobody reads what I write"* - Hard to argue with that one :), but let's see if we can't change that!
 
