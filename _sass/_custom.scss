@@ -1,12 +1,32 @@
-aside {
+.aside {
 	border: solid #cecfd5;
-	border-radius: 20px;
+	border-radius: 10px;
 	padding: 12px;
-	float: right;
-	width: 40%;
-	clear: left;
+	float: left;
+	width: 60%;
+	display: block;
+}
+.full-aside {
+	@extend .aside;
+	width: 100%;
 }
 .belee-dat {
-	float:right;
-	padding: 0px 10px 0px 0px;
+	float:left;
+	margin: 10px 20px 0px 0px;
+  	background-image: url(/images/pointing-hand-300px.png);
+  	background-repeat: no-repeat;
+  	min-height: 100px;
+  	min-width: 100px;
+  	height: auto;
+  	width: auto;
+  	display: block;
+  	background-size:contain;
+}
+.all-clear {
+	clear: both;
+	margin: 0px;
+	height: 0px;
+}
+.italics {
+	font-style: italic;
 }
