@@ -19,7 +19,7 @@ I won't dive too deeply into the implementation weeds, but my basic infrastructu
 
 (here's the <a href="https://www.smashingmagazine.com/2014/08/build-blog-jekyll-github-pages/" target="_blank">post</a> I leaned on heavily to get this up and running, and it went almost* flawlessly)
 
-<img src="/images/belee-dat.png" />
+<img src="/images/belee-dat.png" class="belee-dat">
 
 <br style="clear:right"/>
 
