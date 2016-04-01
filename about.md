@@ -27,7 +27,7 @@ recent Music:
 
 recent Books:
 --- 
-* <a href="http://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215">Domain Driven Design</a> - driving software development using a unified model, built around the <a href="https://en.wikipedia.org/wiki/Domain_(software_engineering)">domain</a>
+* <a href="http://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215">Domain Driven Design</a> - driving software development using a unified model, built around the <a href="https://en.wikipedia.org/wiki/Domain_(software_engineering)">domain</a>.  Working my way slowly through it, thinking about how it applies to current situations.
 
 * <a href="http://www.ananda.org/free-inspiration/books/autobiography-of-a-yogi">Autobiography of a Yogi</a> - tried this out because of the <a href="http://www.inc.com/hitendra-wadhwa/steve-jobs-self-realization-yogananda.html">Steve Jobs</a> connection, and have really enjoyed it.  I've been meditating with <a href="https://www.headspace.com/signup?origintoken=google-b&gclid=CKCr5vC87MsCFQIKaQod-60GFA">Headspace</a> lately, and the book came along at an opportune time.  Love his descriptions of profound experiences, there's a passage <a href="http://www.crystalclarity.com/yogananda/chap14.php">here</a> that blew my mind (starting with "My body became immovably rooted")
 
