@@ -155,9 +155,11 @@ img {
 }
 
 .masthead {
+  margin: 30px 0 0 0;
   padding: 0px 20px 0px 0px;
   background-color: $purple;
   border-bottom: 1px solid $lightGray;
+  border-radius: 10px;
 
   @include mobile {
     text-align: center;
@@ -166,10 +168,10 @@ img {
 }
 
 .site-avatar {
+  margin: -20px 0 0 15px;
   float: left;
   width: 150px;
   height: 150px;
-  margin-right: 15px;
   padding: 0px;
   border: 0px;
 
@@ -177,11 +179,12 @@ img {
     float: none;
     display: block;
     margin: 0 auto;
+    padding-top: 6px;
   }
 
   img {
     border-radius: 5px;
-    height: 150px;
+    height: 175px;
   }
 }
 
@@ -196,24 +199,32 @@ img {
 }
 
 .site-name {
+  padding: 16px 0 0 0;
   margin: 0;
   color: $white;
   cursor: pointer;
   font-family: $helveticaNeue;
   font-weight: 300;
-  font-size: 28px;
+  font-size: 32px;
+  @include mobile {
+    font-size: 22px;
+    padding: 34px 0 0 0;
+  }
+
   letter-spacing: 1px;
 
   @include stroke(1, $black);
 }
 
 .site-description {
+  padding: 10px 0 0 0;
   margin: -5px 0 0 0;
   color: $white;
   font-size: 16px;
 
   @include mobile {
-    margin: 3px 0;
+    margin: 0px 0;
+    font-size: 12px;
   }
 
   @include stroke(1, $black);
@@ -221,9 +232,10 @@ img {
 
 nav {
   float: right;
-  margin-top: 23px; // @TODO: Vertically middle align
   font-family: $helveticaNeue;
   font-size: 18px;
+  margin-top: 23px; // @TODO: Vertically middle align
+
   @include stroke(1, $black);
 
   @include mobile {
@@ -231,6 +243,7 @@ nav {
     margin-top: 9px;
     display: block;
     font-size: 16px;
+    padding-bottom: 6px;
   }
 
   a {
@@ -242,7 +255,7 @@ nav {
 
     @include mobile {
       margin: 0 10px;
-      color: $blue;
+      color: $white;
     }
   }
 }
