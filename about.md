@@ -17,6 +17,7 @@ recent Software:
 
 recent Music:
 --- 
+* <a href="http://www.thewarondrugs.net/">The War On Drugs</a> - my appreciation for this band has been coming in bigger and bigger waves over the past year.  Kind of remind me of Lindsay Buckingham/Fleetwood Mac in ways, with obvious lyrical nods to Dylan.  It sounded "lite" to me at first, but more and more I'm noticing the intricate, wailing guitar solos.  I just keep cycling through their albums.
 * <a href="http://fieryfurnacesforum.com/site/">Fiery Furnaces</a> - Spotify just recommended them today, they blew my mind, and I had no idea they existed - apparently been around since 2000.  Listened to <a href="https://en.wikipedia.org/wiki/Widow_City">Widow City</a>, which I almost skipped over because the cover looked so generic.  Looking forward to working my way through this catalog.
 
 * <a href="http://www.flygoldeneagle.net/">Fly Golden Eagle</a> - there are songs where singer reminds me of Andrew Wood, but other songs the sound is their own.  Newest album is a double album, and I'm loving it.
