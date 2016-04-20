@@ -17,7 +17,10 @@ recent Software:
 
 recent Music:
 --- 
+* <a href="http://mymorningjacket.com/releases#/release/13013">My Morning Jacket - The Waterfall</a> - I've listened to these guys in the past, and while I dug them well enough, they never crossed the threshold into a band I LOVED.  The guy's voice is a little different, and that seemed to trouble me.  However, their latest album (The Waterfall) came up on Spotify the other day, and it's hooked me.  Sounds kind of like their older stuff, but also has like a Marvin Gaye/Ween feel (falsetto?) that sticks in my brain.  I recommend a listen or two.
+
 * <a href="http://www.thewarondrugs.net/">The War On Drugs</a> - my appreciation for this band has been coming in bigger and bigger waves over the past year.  Kind of remind me of Lindsay Buckingham/Fleetwood Mac in ways, with obvious lyrical nods to Dylan.  It sounded "lite" to me at first, but more and more I'm noticing the intricate, wailing guitar solos.  I just keep cycling through their albums.
+
 * <a href="http://fieryfurnacesforum.com/site/">Fiery Furnaces</a> - Spotify just recommended them today, they blew my mind, and I had no idea they existed - apparently been around since 2000.  Listened to <a href="https://en.wikipedia.org/wiki/Widow_City">Widow City</a>, which I almost skipped over because the cover looked so generic.  Looking forward to working my way through this catalog.
 
 * <a href="http://www.flygoldeneagle.net/">Fly Golden Eagle</a> - there are songs where singer reminds me of Andrew Wood, but other songs the sound is their own.  Newest album is a double album, and I'm loving it.
@@ -28,7 +31,7 @@ recent Music:
 
 recent Books:
 --- 
-* <a href="http://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215">Domain Driven Design</a> - driving software development using a unified model, built around the <a href="https://en.wikipedia.org/wiki/Domain_(software_engineering)">domain</a>.  Working my way slowly through it, thinking about how it applies to current situations.
+* <a href="http://www.amazon.com/Only-Paranoid-Survive-Exploit-Challenge/dp/0385483821">Only the Paranoid Survive</a> - Andy Grove was one of the founders and CEO of Intel, and this book appears on almost every "how to succeed at business" reading lists.  In it he describes "Strategic Inflection Points", where a fundamental change can disrupt a business or industry.  When it does, it can lead either to the demise or triumph of the people and companies caught in the middle.  I'm trying to build up my business/management chops a little, and am a tech geek, so this is a very engrossing read for me.
 
 * <a href="http://www.ananda.org/free-inspiration/books/autobiography-of-a-yogi">Autobiography of a Yogi</a> - tried this out because of the <a href="http://www.inc.com/hitendra-wadhwa/steve-jobs-self-realization-yogananda.html">Steve Jobs</a> connection, and have really enjoyed it.  I've been meditating with <a href="https://www.headspace.com/signup?origintoken=google-b&gclid=CKCr5vC87MsCFQIKaQod-60GFA">Headspace</a> lately, and the book came along at an opportune time.  Love his descriptions of profound experiences, there's a passage <a href="http://www.crystalclarity.com/yogananda/chap14.php">here</a> that blew my mind (starting with "My body became immovably rooted")
 
