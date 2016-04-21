@@ -22,7 +22,11 @@ With all the above setup, you basically have two options for your "internal" ser
 
 With each option above, the AWS API Gateway enables transformation of payloads, both inbound and outbound, using <a href="https://velocity.apache.org/engine/releases/velocity-1.5/user-guide.html">VTL Mapping Templates</a>.  VTL was pretty easy to understand, but limited in functionality (compared to something like javascript).  I'm guessing it performs much better, but it would be nice to see more capabilities added here in the future.
 
-Once everything has been setup in AWS, there is a super cool option of exporting your Stage into a <a href="http://swagger.io/">Swagger<a> file.  This seems to be the JSON equivalent of what XSD provided for XML, but seems much simpler (as a side note, a developer on our team who is VERY particular about things being rigidly defined and documented scorned swagger/REST/JSON, because of the loose definitions.  I personally am OK with the tradeoff, but recognize the potential for ambiguity, confusion, etc).  With this Swagger file in hand, you now have an easy path to setting up documentation, an SDK sandbox, and Postman tests!
+Once everything has been setup in AWS, there is a super cool option of exporting your Stage into a <a href="http://swagger.io/">Swagger</a> file.  This seems to be the JSON equivalent of what XSD provided for XML, but seems much simpler (as a side note, a developer on our team who is VERY particular about things being rigidly defined and documented scorned swagger/REST/JSON, because of the loose definitions.  I personally am OK with the tradeoff, but recognize the potential for ambiguity, confusion, etc).  
+
+<img src="{{ site.baseurl }}/images/AWSAPIExport.png" />
+
+With this Swagger file in hand, you now have an easy path to setting up documentation, an SDK sandbox, and Postman tests!
 
 Documentation
 -------------
@@ -37,4 +41,12 @@ Sandbox stuff here
 Postman
 -------
 
-Postman stuff here
+One mental shift I've had to make in the past few years is that when creating "pure" services, I no longer need a client app.  In the days when a client app part of the delivery, that's what we used to test functionality.  When a service was all that was being delivered, I would usually create some sort of test harness to exercise scenarios that tested functionality.  However, recently I've been using <a href="https://www.getpostman.com/">Postman</a> to test services, and love it.  
+
+Postman invokes any sort of web endpoint, and allows for configuration of headers, payloads, security, etc.  Additionally, the folks there are continuing to add other functionality on top of these primitives, such as environment management to enable variable sets (eg, "development" variables vs "qa" variables), test scripts to validate results (and populate environment variables), and importing/exporting suites to foster collaboration.
+
+Postman seems to fall short when it comes to "composite" operations, where you're trying to test a series of web calls end-to-end.  A recent update offers the ability to chain different calls together, so it looks like they're looking to improve this?  However, I think currently if you need complex coordination between a series of web service calls, you either need someone to manually invoke them w/ Postman, or fallback to a custom test harness.
+
+With regards to Swagger and AWS, Postman offers the capabiilty of importing Swagger files, and generating a series of tests from it.  This means that once your API has been staged in AWS, you can quickly spin up the ability to test it via Postman.  Very slick, very powerful.
+
+<img src="{{ site.baseurl }}/images/PostmanImport.png" />
