@@ -3,40 +3,58 @@ layout: post
 title: AWS REST wrapped around WCF - Front to Back
 ---
 
-Last post I described the reasons for using <a href="https://aws.amazon.com/api-gateway">AWS API Gateway</a> for creating REST services.  In this post, I'd like to walk through the steps we took to get this up and running.  In order to cover all the things, I'm going to paint a high level picture, with links providing places to find more details.
+Last post I laid out some reasons for using <a href="https://aws.amazon.com/api-gateway">AWS API Gateway</a> for creating REST services.  In this post, I'd like to walk some of the pieces involved, both within AWS, as well as some external tools that took it to the next level.  In order to cover all the things, I'm going to paint a high level picture, with links providing places to find more details.
 
-First, setting things up in AWS.  The basic layout for a REST API in the AWS Api Gateway is:
+AWS Overview
+------------
 
-* APIs ("Dev", "Prd", "Sandbox" each get their own API)
-	* Resources - these represent entities exposed by the REST API, eg "Reservation", "Account", etc.  Resources define source endpoints, mappings, security, etc.
-	* Stages - these contain deployment/snapshots of a Resource, essentially once your Resource has been completely defined, it's deployed into the wild as a Stage.  We used the convention of including a version in the Stage path (eg "myResource/v1/<id>")
-	* Custom Authorizers - these provide a variety of access control mechanisms to your REST endpoints, such as OAuth or SAML.
-	* Models - these can be used to define the payload of the various REST endpoints, and are mainly used by mapping templates (more on mapping templates in a minute, they essentially allow you to transform inputs/outputs from the AWS REST layer to your internal layer).  Honestly, we didn't use these much - we simply created the templates without relying on Models.
+First, setup within AWS.  The basic layout for a REST service in the AWS API Gateway is:
 
-Amazon provides great documentation around this whole thing, including this informative <a href="http://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-create-api-from-example.html">walkthrough</a>.  There are a variety of other wikis/blogs out there that illustrate this process, just search google.
+* **APIs** - overall container for a single API (in our implementation, "Dev", "Prd", "Sandbox" each get their own API)
+	* **Resources** - entities exposed by the REST API, eg "Reservation", "Account", etc.  Resources define source endpoints, mappings, and security.
+	* **Stages** - deployment/snapshots of a Resource.  Once your Resource has been completely defined, it is deployed publicly as a Stage.  We used the convention of including a version in the Stage path (eg "myResource/v1/<id>").  AWS provides a lengthly, publicly-exposed URI for your Stage (eg,  https://xxxxxxxxxx.execute-api.us-west-2.amazonaws.com/v1)
+	* **Custom Authorizers** - these provide a variety of access control mechanisms to your REST endpoints, such as OAuth and SAML.
+	* **Models** - these can be used to define the payload of the various REST endpoints, and are mainly used by mapping templates (more on mapping templates in a minute, they allow you to transform inputs/outputs from the AWS REST layer to your internal layer).  They're also referenced by Lambda functions (more on THAT below).  Honestly, we didn't use these much - we aren't using Lambdas, and wrote most of the transformation templates by hand.
 
-With all the above setup, you basically have two options for your "internal" services:
+Amazon provides thorough documentation around this whole thing, including this informative <a href="http://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-create-api-from-example.html">walkthrough</a>.  There are a variety of other wikis/blogs out there that illustrate this process, Googling turns up plenty.
 
-1) Provide endpoints that AWS will invoke when the REST endpoints are invoked (this is the route we are using).
-2) Use <a href="https://aws.amazon.com/lambda/">AWS Lambda</a> functions.  These are essentially "dynamic" services you create entirely within AWS, and look pretty powerful.  We already had web services we wanted to utilize, so this option wasn't really considered, but it looks like a person could do some pretty fantastic things here.
+Mapping To Internal
+-------------------
 
-With each option above, the AWS API Gateway enables transformation of payloads, both inbound and outbound, using <a href="https://velocity.apache.org/engine/releases/velocity-1.5/user-guide.html">VTL Mapping Templates</a>.  VTL was pretty easy to understand, but limited in functionality (compared to something like javascript).  I'm guessing it performs much better, but it would be nice to see more capabilities added here in the future.
+With all the above configured, you have two options for your "internal" services:
 
-Once everything has been setup in AWS, there is a super cool option of exporting your Stage into a <a href="http://swagger.io/">Swagger</a> file.  This seems to be the JSON equivalent of what XSD provided for XML, but seems much simpler (as a side note, a developer on our team who is VERY particular about things being rigidly defined and documented scorned swagger/REST/JSON, because of the loose definitions.  I personally am OK with the tradeoff, but recognize the potential for ambiguity, confusion, etc).  
+1. Provide existing endpoints that AWS will invoke from the REST endpoints (this is the route we are using).
+2. Use <a href="https://aws.amazon.com/lambda/">AWS Lambda</a> functions.  These are "dynamic" services you define entirely within AWS (using languages such as JS, Python, Java, etc), and look pretty powerful.  We already have web services we want to utilize, so this option wasn't really considered; however, it appears a person could do some pretty fantastic things with them.
+
+With each option above, the AWS API Gateway enables transformation of payloads, both inbound and outbound, using <a href="https://velocity.apache.org/engine/releases/velocity-1.5/user-guide.html">VTL Mapping Templates</a>.  VTL was pretty easy to understand, but limited in functionality (compared to something like JS).  I'm assuming its more performant, but it would be nice to see more capabilities added here in the future.
+
+Swagger
+-------
+
+Once everything has been setup in AWS, there is a super cool option of exporting your Stage into a <a href="http://swagger.io/">Swagger</a> file.  This is sort of the JSON equivalent of what XSD provides for XML, but simpler (as a side note, a developer on our team who is VERY particular about rigidly defining and documenting things scorns swagger/REST/JSON, because of the loose definitions.  I personally am OK with the tradeoff, but recognize the potential for ambiguity, confusion, etc).  
 
 <img src="{{ site.baseurl }}/images/AWSAPIExport.png" />
 
-With this Swagger file in hand, you now have an easy path to setting up documentation, an SDK sandbox, and Postman tests!
+With this Swagger file in hand, you now have an easy path to setting up Documentation, an SDK sandbox, and Postman tests!
 
-Documentation
--------------
+Documentation / Sandbox
+-----------------------
 
-Doc stuff here
+One of the biggest challenges with supporting an external API is teaching people how to use it, and keeping that documentation up to date.  One benefit to Swagger is you can use <a href="http://swagger.io/swagger-ui/">Swagger UI</a>, a tool that automatically generates documentation and a sandbox from a Swagger file.  It is dead simple to get up and running, and the open-sourceness of it allows for tweaking generated content to your heart's content (/ˈkäntent/, /kənˈtent/).  
 
-SDK Sandbox
------------
+Here's a screenshot of the their default example.  As you can see, it provides a high level list of all the resources available in the Swagger definition:
 
-Sandbox stuff here
+<img src="{{ site.baseurl }}/images/swaggerUI1.png" />
+
+From here, a user can drill down into the operations available on each Resource:
+
+<img src="{{ site.baseurl }}/images/swaggerUI2.png" />
+
+And for each operation, they can drill deeper, view detailed documentation, and even test them against a sandbox.  Huge potential for professional SDK generation here!
+
+<img src="{{ site.baseurl }}/images/swaggerUI3.png" />
+
+As long as the swagger file is the source of truth, and is kept current, Swagger UI can drastically reduce friction for external consumers of a REST API.
 
 Postman
 -------
