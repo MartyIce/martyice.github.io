@@ -1,6 +1,7 @@
 ---
 layout: post
 title: AWS REST wrapped around WCF - Front to Back
+tweetText: AWS REST wrapped around WCF - Front to Back
 ---
 
 Last post I laid out some reasons for using <a href="https://aws.amazon.com/api-gateway">AWS API Gateway</a> for creating REST services.  In this post, I'd like to walk some of the pieces involved, both within AWS, as well as some external tools that can take it to the next level.  In order to cover all the things, I'm going to paint a high level picture, with links to pages providing more detail.
@@ -82,6 +83,8 @@ I hope I've done a decent job of illustrating possibilities with the AWS API arc
 	<h3>WDMLABATW of the week(s):</h3>
 	<ul class="padded-li">
 		<li>Longer, more detailed posts take more time!  I know that you, my rabid readers, have been wondering about the next post, and I hope I haven't brought too much sadness into your lives with this delay.  In addition to the longer time actually writing, its harder to stay motivated between writing sessions.  This one sat untouched for days on end, and I'd get depressed just thinking about it.  Kind of a slog!  I suspect the secret here is taking it in smaller bites, being OK with yourself when you need a few days off, and steadily marching forward.  I think/hope this type of thing will get easier with time.</li>
+		<li>I've got a Tweet button!  I wanted to get this in place, and like I said, this post took longer than I would have liked, so I did this rather quickly. Twitter <a href="https://about.twitter.com/resources/buttons#tweet">makes it easy</a>.  I plan on making this more robust and complete in the future.
+		</li>
 	</ul>
 </aside>
 
