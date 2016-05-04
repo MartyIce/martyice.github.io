@@ -17,6 +17,8 @@ recent Software:
 
 recent Music:
 --- 
+* <a href="https://en.wikipedia.org/wiki/Golden_Smog">Golden Smog</a> - yet another Spotify discovery, this is a "Supergroup" with members from Soul Asylum, The Replacements, Wilco, The Jayhawks, Run Westy Run, The Honeydogs and Big Star.  No idea this existed, but some really good songs here.  I'm a big Tweedy fanboy, so anything he touches is usually....golden</a>
+
 * <a href="http://mymorningjacket.com/releases#/release/13013">My Morning Jacket - The Waterfall</a> - I've listened to these guys in the past, and while I dug them well enough, they never crossed the threshold into a band I LOVED.  The guy's voice is a little different, and that seemed to trouble me.  However, their latest album (The Waterfall) came up on Spotify the other day, and it's hooked me.  Sounds kind of like their older stuff, but also has like a Marvin Gaye/Ween feel (falsetto?) that sticks in my brain.  I recommend a listen or two.
 
 * <a href="http://www.thewarondrugs.net/">The War On Drugs</a> - my appreciation for this band has been coming in bigger and bigger waves over the past year.  Kind of remind me of Lindsay Buckingham/Fleetwood Mac in ways, with obvious lyrical nods to Dylan.  It sounded "lite" to me at first, but more and more I'm noticing the intricate, wailing guitar solos.  I just keep cycling through their albums.
