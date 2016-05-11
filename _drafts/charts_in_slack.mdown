@@ -1,0 +1,20 @@
+---
+layout: post
+title: Bring Numbers to Life in Slack
+---
+
+I'm a sucker for learning new frameworks and ecosystems, and get a big endorphin rush from generating fancy charts, so was sort of in nerd paradise when I worked on this post's project.  The overarching goal was:
+
+Given a set of numbers we track in our database
+When I request a visual representation in Slack
+Then a fancy chart will appear and give me an endorphin rush
+
+I'm sure at this point I've got you on the edge of your seat, your body tingling with anticipation for the upcoming bliss.  Hopefully you'll get a vicarious sense of joy reading about my experience, and enough of a roadmap to set yourself free as well.
+
+There are a few pieces at play during this adventure:
+
+1. *<a href="https://www.heroku.com">Heroku</a>* - our backend, which includes a PostgreSQL database and Rails app layer
+2. *<a href="https://hubot.github.com">Hubot</a>* - a "bot" that can be used to automate chatrooms, perform tasks, etc.  Created by the folks at Github.
+3. *<a href="https://charturl.com">Chart URL</a>* - a chart generating API - you send them numbers, they create an image containing a C3 chart.
+4. *<a href="https://slack.com">Slack</a>* - super cool messaging app we use at <a href="https://www.earthclassmail.com">Earth Class Mail</a> for all our messaging needs.
+
