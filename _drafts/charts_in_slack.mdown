@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Bring Numbers to Life in Slack
+or Make Numbers Visible in Slack
 ---
 
 I'm a sucker for learning new frameworks and ecosystems, and get a big endorphin rush from generating fancy charts, so was sort of in nerd paradise when I worked on this post's project.  The overarching goal was:
@@ -17,4 +18,34 @@ There are a few pieces at play during this adventure:
 2. *<a href="https://hubot.github.com">Hubot</a>* - a "bot" that can be used to automate chatrooms, perform tasks, etc.  Created by the folks at Github.
 3. *<a href="https://charturl.com">Chart URL</a>* - a chart generating API - you send them numbers, they create an image containing a C3 chart.
 4. *<a href="https://slack.com">Slack</a>* - super cool messaging app we use at <a href="https://www.earthclassmail.com">Earth Class Mail</a> for all our messaging needs.
+
+Once these things are setup, what once was a black box of inscrutable data becomes a flowerly, rainbow-like smorgasboard of business insight!
+
+Here's a play-by-play on how it all came together...
+
+Heroku
+------
+
+We are utilizing Heroku for a few different <h href="http://rubyonrails.org/">Ruby on Rails</a> apps within our organization, including our onboarding process.  Part of this architecture includes a <a href="https://www.postgresql.org/">PostgreSQL</a> database that contains all sorts of interesting data.  While Heroku would allow us to directly connect to our DB (I believe they actually host it in <a href="https://aws.amazon.com/">AWS</a>?), they offer a simpler solution that allows us to create simple, targeted micro-services - <a href="https://blog.heroku.com/archives/2012/2/14/simple_data_sharing_with_data_clips">Data Clips</a>.
+
+Heroku Data Clips are explained in detail in the blog link above, but essentially:
+
+1. You provide a SQL query against your PostgreSQL data store.
+2. Heroku provides a secure URL that will invoke that query (this can be executed real-time, every time, or pinned to a point in time, providing a static snapshot).
+3. Your data is set free, and available to colleagues and 3rd party apps.
+
+With a few simple Data Clips in place, we are ready to consume using Hubot!
+
+Hubot
+-----
+
+Hubot is a scripted automation engine invented by the folks at Github.  It is useful for all sorts of things, including integrating chatrooms with 3rd party services (which is why we're using it). It is written in <a href="http://coffeescript.org/">CoffeeScript</a> and runs on <a href="https://nodejs.org/">Node JS</a>, and is easily accessible if you know javascript.
+
+ChartURL
+--------
+
+Slack
+-----
+
+
 
