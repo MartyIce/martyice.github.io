@@ -39,7 +39,15 @@ With a few simple Data Clips in place, we are ready to consume using Hubot!
 Hubot
 -----
 
-Hubot is a scripted automation engine invented by the folks at Github.  It is useful for all sorts of things, including integrating chatrooms with 3rd party services (which is why we're using it). It is written in <a href="http://coffeescript.org/">CoffeeScript</a> and runs on <a href="https://nodejs.org/">Node JS</a>, and is easily accessible if you know javascript.
+Hubot is a scripted automation engine invented by the folks at Github.  It is useful for all sorts of things, including integrating chatrooms with 3rd party services (which is why we're using it). It is written in <a href="http://coffeescript.org/">CoffeeScript</a> and runs on <a href="https://nodejs.org/">Node JS</a>, and is easily to use if you know coffeescript (or javascript).
+
+In a simplified nutshell, we do the following within our script:
+
+1. Utilize (amongst other libraries) <a href="https://github.com/slackhq/hubot-slack">hubot-slack</a>
+2. robot.respond /querytorobot - this is the hook in the script that responds to the command in the chat room.  We associate a delegate here that does the heavy lifting.
+3. msg.send 'what we want to send to slack' - this allows us to send any info we want to Slack
+
+I'm leaving alot of implementation details here to the reader, but long story short, Hubot will allow you to bridge your DataClips to your Slack instance (or any other chat program, for that matter).
 
 ChartURL
 --------
