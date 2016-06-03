@@ -49,11 +49,34 @@ In a simplified nutshell, we do the following within our script:
 
 I'm leaving alot of implementation details here to the reader, but long story short, Hubot will allow you to bridge your DataClips to your Slack instance (or any other chat program, for that matter).
 
+So Far, Good Enough?
+--------------------
+
+With our data in hand, and a transport for sending it to Slack, we have a solid mechanism for providing valuable reports to end users.  In fact, at EarthClassMail we do just this regularly.  For example, something like:
+
+/hubot leads
+
+Will dump a set of numbers to the slack window representing our latest accumulation of lead data.  While super informative to the business, and probably "enough" to get the job done, I'm a big fan of visualizing data.  As they say, a picture is worth a thousand words.  WOuldn't it be great if we could slap a graph on the data?
+
 ChartURL
 --------
 
+When I first tackled this visualization project, I figured I'd generate a <a href="https://d3js.org/">D3</a> graph from the data, and embed an HTML link in Slack.  Unfortunately, at the time I implemented this solution, this wasn't possible (maybe in the future?).  What IS possible is providing a link to a static image, and Slack will dutifully display that within the channel.  After pursuing several dead ends for accomplishing this task, a coworker clued me in to <a href="https://charturl.com/">Chart URL</a>, a handy service that gives us exactly what we need!
+
+Chart URL actually uses <a href="http://c3js.org/">C3</a>, a charting library BASED on D3 (which is great for us!)  With a few simple steps (and some scripting transformations), we can get our Chart within Slack:
+
+1. Define the chart template within Chart URL (a little bit of a learning curve here, but manageable).
+2. Within our Hubot script, pull JSON data from Heroku Data Clip
+3. Transform this JSON as necessary to get it in the format required by Chart URL.
+4. Post payload to Chart URL - they will respond with a publicly exposed URL that displays a static chart representing our data.
+5. Use msg.send to post this URL into Slack...and viola!  Our Chart appears in the channel, visually describing our data at a glance.  Money.
+
 Slack
 -----
+
+Finally...there is no finally!  Slack is obviously a big part of this, but we're already done.  With this general pattern, all sorts of data can be represented in all sorts of ways.  Impress your boss!  Wow your friends!  SET YOUR DATA FREE!!!
+
+
 
 
 
