@@ -4,13 +4,13 @@ title: Bring Numbers to Life in Slack
 or Make Numbers Visible in Slack
 ---
 
-I'm a sucker for learning new frameworks and ecosystems, and get a big endorphin rush from generating fancy charts, so was sort of in nerd paradise when I worked on this post's project.  The overarching goal was:
+I'm a sucker for learning new frameworks and ecosystems, and get a big rush generating fancy charts, so was in nerd paradise when I worked on this post's project.  The overarching goal was:
 
 Given a set of numbers we track in our database
 When I request a visual representation in Slack
 Then a fancy chart will appear and give me an endorphin rush
 
-I'm sure at this point I've got you on the edge of your seat, your body tingling with anticipation for the upcoming bliss.  Hopefully you'll get a vicarious sense of joy reading about my experience, and enough of a roadmap to set yourself free as well.
+I'm sure at this point I've got you on the edge of your seat, your body tingling with anticipation for the upcoming bliss.  Hopefully you'll get some joy reading about my experience, and enough of a roadmap to set yourself free as well.
 
 There are a few pieces at play during this adventure:
 
@@ -56,12 +56,12 @@ With our data in hand, and a transport for sending it to Slack, we have a solid 
 
 /hubot leads
 
-Will dump a set of numbers to the slack window representing our latest accumulation of lead data.  While super informative to the business, and probably "enough" to get the job done, I'm a big fan of visualizing data.  As they say, a picture is worth a thousand words.  WOuldn't it be great if we could slap a graph on the data?
+Will dump a set of numbers to the slack window representing our latest accumulation of lead data.  While super informative to the business, and probably "enough" to get the job done, I'm a big fan of visualizing data.  As they say, a picture is worth a thousand words.  Wouldn't it be great if we could slap a graph on front of the data?
 
 ChartURL
 --------
 
-When I first tackled this visualization project, I figured I'd generate a <a href="https://d3js.org/">D3</a> graph from the data, and embed an HTML link in Slack.  Unfortunately, at the time I implemented this solution, this wasn't possible (maybe in the future?).  What IS possible is providing a link to a static image, and Slack will dutifully display that within the channel.  After pursuing several dead ends for accomplishing this task, a coworker clued me in to <a href="https://charturl.com/">Chart URL</a>, a handy service that gives us exactly what we need!
+When I first tackled this visualization project, I figured I'd generate a <a href="https://d3js.org/">D3</a> graph from the data, and embed an HTML link in Slack.  Unfortunately, at the time I implemented this solution, this wasn't possible (maybe in the future?).  What IS possible is providing a link to a static image, and Slack will display that within the channel.  After pursuing several dead ends for accomplishing this task, a coworker clued me in to <a href="https://charturl.com/">Chart URL</a>, a handy service that gives us exactly what we need!
 
 Chart URL actually uses <a href="http://c3js.org/">C3</a>, a charting library BASED on D3 (which is great for us!)  With a few simple steps (and some scripting transformations), we can get our Chart within Slack:
 
@@ -69,7 +69,7 @@ Chart URL actually uses <a href="http://c3js.org/">C3</a>, a charting library BA
 2. Within our Hubot script, pull JSON data from Heroku Data Clip
 3. Transform this JSON as necessary to get it in the format required by Chart URL.
 4. Post payload to Chart URL - they will respond with a publicly exposed URL that displays a static chart representing our data.
-5. Use msg.send to post this URL into Slack...and viola!  Our Chart appears in the channel, visually describing our data at a glance.  Money.
+5. Use msg.send to post this URL into Slack...and voila!  Our Chart appears in the channel, visually describing our data at a glance.  Money.
 
 Slack
 -----
