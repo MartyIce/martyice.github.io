@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Bring Numbers to Life in Slack
+tweetText: Bring Numbers to Life in Slack
 ---
 
 I'm a sucker for learning new frameworks and ecosystems, and get a big rush generating fancy charts, so was in nerd paradise when I worked on this post's project.  The overarching goal was:
