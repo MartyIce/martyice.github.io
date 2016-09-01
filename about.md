@@ -8,9 +8,10 @@ Curious software developer, like to play music, listen to tons too.  Wife and I 
 
 recent Software:
 --- 
-* Building Azure Web services, and auto-deploying them to Azure via <a href="https://www.appveyor.com/">Appveyor</a>.
+* Creating a custom Nuget package, and hosting on a private feed
+* Building Azure Web services, and auto-deploying them to Azure via <a href="https://www.appveyor.com/">Appveyor</a>
 * Learning a large existing .Net architecture
-* Learning Rails on some existing sites.
+* Learning Rails on some existing sites
 * Dipping my toe in some clouds (AWS and Azure)
 * Learning <a href="https://jekyllrb.com/">Jekyll</a> and <a href="http://sass-lang.com/">Sass</a> (yay!  You're here!)
 * Truly Pair Programming for the first time in my life
@@ -18,6 +19,10 @@ recent Software:
 
 recent Music:
 --- 
+
+* <a href="https://www.spotify.com/us/discoverweekly/">Spotify Discover Weekly</a> - While not an artist/album, this is worth special mention.  I'm a big fan of Spotify, and have found tons of new music on there.  This new feature will compile a playlist each week of music it "thinks" you will like, based on past listening preferences.  I feel like my new music discovery has gone into overdrive - so much good stuff out there!
+
+* <a href="http://deertickmusic.com/">Deer Tick - The Black Dirt Sessions</a> - I've heard of these guys in the past, but the little I listened to didn't really grab me.  This album came up in the Spotify Discover Playlist (song: "Choir of Angels"), and after a few times of it playing in the background, the song grabbed me, and then the whole album grabbed me.  Great stuff, and hard to classify.  Maybe "grungy, with some hat tips to 50's and 60's rock"?  I've started to delve into other albums, and these guys rock.
 
 * <a href="http://theholdsteady.net/">The Hold Steady</a> - I've been digging these guys, they kind of remind me of Springsteen.  Mouthfuls of lyrics spit forcefully into the microphone, with steady driving music pushing it along.  This is one of those bands where I'll start at the top on Spotify, and listen to several albums throughout the course of the day.  Some highlights - "You Can Make Him Like You" and "One For the Cutters".
 
@@ -41,6 +46,9 @@ recent Music:
 
 recent Books:
 --- 
+
+* <a href="https://www.amazon.com/dp/B009Y4I4Y2/ref=dp-kindle-redirect?_encoding=UTF8&btkr=1">Paula McLain - The Paris Wife</a> - continuing my Ernest Hemingway journey, this is a "historical fiction" book written from the point of view of Papa's first wife, Hadley.  While there certainly has to be some "creative license" in some of the dialogue and events, it feels very real and accurate.  Great insight and portal into Hemingway's early/formative years as an author.
+
 * <a href="https://www.amazon.com/Seveneves-Novel-Neal-Stephenson/dp/0062190377">Neal Stephenson - Seveneves</a> - good sci-fi book about the end of the world, and new beginnings.  A bit cumbersome when he gets too deeply into the details, still enough awe-inspiring descriptions of things at massive scale to make it well worth the read.  I remember when I read Cryptonomicon, I had a few false starts, because he's kind of all over the place in his stories.  But once you get your teeth in his story, you don't want to let go.
 
 * <a href="https://en.wikipedia.org/wiki/The_Sun_Also_Rises">Ernest Hemingway - The Sun Also Rises</a> - reading Papa Hemingway made me want to dive deep into Ernest, and this is the first book I chose.  It was good, and after reading Papa Hemingway, it was hard to not visualize the main character as the man himself.  I tend to speed read, and I think I need to temper that when reading Hemingway.  His sparse and direct writing style give the impression of simplicity, then he'll drop an observation on human behavior in the middle of it all that you can miss if you move too quickly.  Looking forward to reading more!
