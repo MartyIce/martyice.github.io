@@ -26,7 +26,7 @@ Here's a play-by-play on how it all came together...
 Heroku
 ------
 
-We are utilizing Heroku for a few different <h href="http://rubyonrails.org/">Ruby on Rails</a> apps within our organization, including our onboarding process.  Part of this architecture includes a <a href="https://www.postgresql.org/">PostgreSQL</a> database that contains all sorts of interesting data.  While Heroku would allow us to directly connect to our DB (I believe they actually host it in <a href="https://aws.amazon.com/">AWS</a>?), they offer a simpler solution that allows us to create simple, targeted micro-services - <a href="https://blog.heroku.com/archives/2012/2/14/simple_data_sharing_with_data_clips">Data Clips</a>.
+We are utilizing Heroku for a few different <a href="http://rubyonrails.org/">Ruby on Rails</a> apps within our organization, including our onboarding process.  Part of this architecture includes a <a href="https://www.postgresql.org/">PostgreSQL</a> database that contains all sorts of interesting data.  While Heroku would allow us to directly connect to our DB (I believe they actually host it in <a href="https://aws.amazon.com/">AWS</a>?), they offer a simpler solution that allows us to create simple, targeted micro-services - <a href="https://blog.heroku.com/archives/2012/2/14/simple_data_sharing_with_data_clips">Data Clips</a>.
 
 Heroku Data Clips are explained in detail in the blog link above, but essentially:
 
