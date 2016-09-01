@@ -15,7 +15,7 @@ In a nutshell:<br />
 
 I'm no expert, but know my way around Nuget well enough to use it in projects, and have recently dipped my toe in the "create your own Nuget package!" waters.  
 
-One of my recent projects at <a href="https://www.earthclassmail.com/">Earth Class Mail</a> involved a few overarching efforts:
+One of my recent projects at <a href="https://www.earthclassmail.com/">Earth Class Mail</a> involved a few over-arching efforts:
 
 1. Move code we want to share between projects into a Nuget package, and reference that new package from these projects.
 2. Create an Azure-based REST service to facilitate bidness.
