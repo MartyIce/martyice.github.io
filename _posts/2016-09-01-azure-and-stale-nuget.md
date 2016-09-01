@@ -10,7 +10,7 @@ Today, we discuss Azure holding onto stale Nuget references.
 
 <a href="https://www.nuget.org/">Nuget</a> is the package manager for the Microsoft development platform (.NET).  If you've used <a href="https://www.npmjs.com/">npm</a> in the javascript world, it's sort of like that for .Net.  
 
-In a nutshell:
+In a nutshell:<br />
 <img src="{{ site.baseurl }}/images/npm_and_nuget.png" />
 
 I'm no expert, but know my way around Nuget well enough to use it in projects, and have recently dipped my toe in the "create your own Nuget package!" waters.  
@@ -59,6 +59,6 @@ Long story short, after running the following commands in the console:
 
 Then executing the "Synch" operation on my <a href="https://azure.microsoft.com/en-us/documentation/articles/web-sites-staged-publishing/">Deployment Slot</a>, the updated Nuget package was referenced correctly, my code compiled, and all was good with the world!
 
-<img src="{{ site.baseurl }}/images/zen_enlightenment.png" />
+![Zen Enlightenment](/images/zen_enlightenment.png){: .center-image }
 
 So if you ever find yourself in this situation, do not forget your friend "Azure Console".  It just may save your hide, job, and sanity.
