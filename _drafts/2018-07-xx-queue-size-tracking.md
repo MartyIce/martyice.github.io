@@ -1,37 +1,113 @@
 ---
 layout: post
-title: Painting a Pipeline from App Insights
-tweetText: Painting a Pipeline from App Insights
+title: Querying Azure Queues - My, How You've Grown!
+tweetText: Querying Azure Queues - My, How You've Grown!
 ---
 
-Thousands of items moving into and through inventory.  Lots of information to track.  Plenty of things can go wrong.  How do we tell whether everything's working?  How can we know when things run more slowly than usual?
+The magic of the cloud - infrastructure on demand!  Spin up the queues, and stack up the messages!  A piece of the puzzle we used to implement and worry about, forever delegated to the professionals.  But we still have to *use* them correctly.  And we still need to know if things are working correctly.  How to peel back that layer?
 
-I work for a company called EarthClassMail, and we specialize in "Office Mail Automation".  We've got a pipeline (composed of people and software) with thousands of pieces of mail (and packages) coming in a day.  These items are scanned, added to various databases, considered for further action (content scan, shipping, recycle, etc), and presented to the customer in our UI.
+Using Application Insights, this becomes very easy to do.  I'm going to walk through the process of both monitoring the queues, and displaying their current sizes in a pretty chart, placed front and center on an Azure dashboard.  *Disclaimer - things are constantly evolving (both my knowledge and Azure's abilities), so odds are this post will become quite dated shortly!
 
-Our existing (legacy) system still tracks lots of the above in our SQL database.  But we've been peeling back the layers, and moving things to clouds (mostly Azure queues and functions).  It's an ongoing process, and we're learning as we go.  But when things don't work correctly, we've been frustrated with a lack of visibility into where the problems lie.  Enter Application Insights.
+Frankly, it suprised me that I needed to hand-roll this functionality - it seems like something Azure would provide out of the box?  However, I wasn't able to figure out where/how they do, so I implemented something myself (using Azure, of course!).  There are a few pieces to this implementation:
 
-Azure has had App Insights for a while.  I had played with it some, but only used their built-in dashboard.  The dashboard is powerful in ways (especially for tracking service throughput, etc), but limited in it's filtering capabilities (eg, looking at interesting traces, etc).  It was hard to find the information I needed.  I'd try to get lucky with date ranges, and usually fail.
+* Azure Function - used to periodically poll the sizes of queues
+* App Insights - used to record the results the function polls, and turn them into a pretty chart
+* Azure Dashboard - used to conveniently house the chart for readily viewing
 
-<img src="{{ site.baseurl }}/images/azure_deployment.png" alt="Default App Insights Dashboard"/>
+Azure Function - Tracking the Sizes
+---
 
-This let me to disregard the power AppInsights offered.  Until I used AppInsights Analytics.
+Azure Functions offer a way to quickly spin up "micro services" that perform smaller tasks, in a compartmentalized fashion.  They are effectively a small "slice" of a full web app, with Azure handling much of "infrastructure" and setup concerns behind the scenes.  We created one to periodically query each queue in a list for their size...it looks like this:
 
-<img src="{{ site.baseurl }}/images/analytics1.png" alt="App Insights Analytics Chart"/>
+```
+// Reference external assembly
+// https://docs.microsoft.com/en-us/azure/azure-functions/functions-reference-csharp#referencing-external-assemblies
+#r "Microsoft.WindowsAzure.Storage"
 
-AppInsights Analytics is more like using SQL, but uses it's own query syntax.  It looked confusing to me at first, but the syntax began to make sense once I played with it some.  (whey can't they allow just a *little* SQL?  Seems like they could have some sort of interpretor?  maybe someone could write one.).  
+// Standard .Net "usings"
+using System;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.ApplicationInsights;
+using Microsoft.ApplicationInsights.Extensibility;
 
-<img src="{{ site.baseurl }}/images/hard-query.png" alt="Intense Querying"/>
+// TelemetryClient for sending info to AI.
+// Substitute your "InstrumentationKey" here:
+private static TelemetryClient _client = new TelemetryClient() { InstrumentationKey = "<InstrumentationKey>" };
 
-While the above seems crazy to the untrained eye, you get used to it after a while.
+// This function will run on a periodic basis (timer config displayed in screenshot below)
+public static void Run(TimerInfo myTimer, TraceWriter log)
+{
+    // This will log a Trace to App Insights in the App Insights instance ASSOCIATED WITH THIS FUNCTION (not necessarily
+    //  the same AI instance referenced by our "_client" variable!)
+    log.Info($"MonitorScanQueues function executed at: {DateTime.Now}");
 
-Analytics allows me to find the exact traces/requests I need, and easily renders them in a variety of formats:
+    // connect to Azure Storage
+    var connectionString = "<AzureStorageConnectionString";
+    var account = CloudStorageAccount.Parse(connectionString);
+    var queueClient = account.CreateCloudQueueClient();
 
-<img src="{{ site.baseurl }}/images/google-render-results.png" alt="So Much Beauty!"/>
+    // List of Queues we want to poll
+    var scanPipelineQueues = new string[] { 
+            "my-queue-1",
+            "my-queue-2",
+            "my-queue-another",
+            "my-queue-error",
+            "my-queue-random"
+         };
 
-We've only begun to explore using AppInsights in meaningful ways, but this series of posts will focus on the challenges encountered when instrumenting the item pipeline mentioned above.  They included:
+    // Loop through queues
+    foreach (var queueName in scanPipelineQueues)
+    {
+        // get a reference to the queue and retrieve the queue length
+        var queue = queueClient.GetQueueReference(queueName);
+        queue.FetchAttributes();
+        var length = queue.ApproximateMessageCount;
 
-* Legacy .Net/SqlServer architecture in a private data center, gradually under migration to cloud.
-* Specifically, our "item pipeline" was being lifted out of a SQL state engine, and moved into Azure queues, functions, and an AWS Elastic data repository.  
-* The pipeline was running slow.  Scans were taking way too long to go from "mailman handed us the bag" to "customer can view in the UI".
+        // Track the count as a metric within App Insights
+        _client.TrackMetric($"Queue length - {queueName}", (double)length);
+    }
 
-We needed a way of knowing our queue sizes, and where individual items stood in the "pipeline".  The next few posts will get into the technical details of how we tackled this problem.
+}
+```
+
+Here's a view of the "Integrate" section of the Azure Function administration, where we set things up on a timer:
+
+<img src="{{ site.baseurl }}/images/queue-size-tracking/timer-based-function.png" alt="Timer Based Function"/>
+
+The "Schedule" parameter is a standard <a href="https://www.freeformatter.com/cron-expression-generator-quartz.html">chron expression</a> used to define a time interval.  In this screenshot, we're executing our function once a minute.
+
+App Insights - Record the Sizes, Display Pretty Chart
+---
+Our usage of the App Insights SDK is illustrated in the code sample above - we're performing a simple recording of App Insights <a href="https://docs.microsoft.com/en-us/azure/application-insights/app-insights-metrics-explorer">Metrics</a> to capture the size of our queues once a minute.
+
+When viewed from App Insights Analytics, these results will look something like this:
+
+<img src="{{ site.baseurl }}/images/queue-size-tracking/queue-data.png" alt="Raw Queue Data"/>
+
+Note our queues are running pretty nicely right now!  I'm writing this blog post on a weekend :)
+
+That view is pretty boring, but becomes much cooler with a simple "render" statement at the end of our query:
+
+<img src="{{ site.baseurl }}/images/queue-size-tracking/queue-chart.png" alt="Queue Data Visualized"/>
+
+In addition to being pretty, this chart gives us visual cues that immediately leap off the page, allows us to view trends, and is more consumable by "non-techies".  Big win!  The final step here is to put this chart somewhere readily accessible, without the need to write a confusing query.
+
+Azure Dashboard - Share and Share Alike
+---
+
+This step is actually very simple - by clicking the "pin" icon in the upper right of the chart:
+
+<img src="{{ site.baseurl }}/images/queue-size-tracking/pin-the-chart.png" alt="Pin the Chart"/>
+
+You can select an "Azure Dashboard" to pin the chart to.  With that, when you open Azure Portal, you see a default Dashboard (and can choose others).  And with pinned charts, you get an immediate high-level view of all the data you may be interested in:
+
+<img src="{{ site.baseurl }}/images/queue-size-tracking/dashboard.png" alt="Pin the Chart"/>
+
+Additionally, the 4 icons on the right of each chart are:
+
+* Refresh - pull new information from AI, and refresh the display
+* Edit Title - provide more meaningful title for the chart
+* Edit Query - edit the query inline to tweak your results
+* Open Chart in Analytics - open the analytics UI to edit/refine your query and chart
+
+Big, easy power!
