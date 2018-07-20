@@ -7,7 +7,7 @@ tweetText: Painting a Pipeline from App Insights
 <h3>The Problem</h3>
 Thousands of items moving into and through inventory.  Wide variety of information to track.  Myriad things can go wrong.  How do we tell whether everything's working?  How can we know when things run more slowly than usual?
 
-I work for a company called EarthClassMail, and we specialize in "Office Mail Automation".  We've got a pipeline (composed of people and software) with thousands of pieces of mail (and packages) coming in a day.  These items are scanned, added to various databases, considered for further action (content scan, shipping, recycle, etc), and presented to the customer in our UI.
+I work for a company called <a href="https://www.earthclassmail.com/" target="_blank">EarthClassMail</a>, and we specialize in "Office Mail Automation".  We've got a pipeline (composed of people and software) with thousands of pieces of mail (and packages) coming in a day.  These items are scanned, added to various databases, considered for further action (content scan, shipping, recycle, etc), and presented to the customer in our UI.
 
 Our existing (legacy) system still tracks most of the above in our SQL database.  But we've been peeling back the layers, and moving things to clouds (mostly Azure queues and functions, but that list is growing).  It's an ongoing process, and we're learning as we go.  But when things don't work correctly, we've been frustrated with a lack of visibility into where the problems lie.  Enter Application Insights.
 
