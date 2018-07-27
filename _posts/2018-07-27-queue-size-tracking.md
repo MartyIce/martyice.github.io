@@ -5,7 +5,6 @@ tweetText: Querying Azure Queues - My, How You've Grown!
 ---
 
 <h3>The Problem</h3>
-
 The magic of the cloud - infrastructure on demand!  Spin up the queues, and stack up the messages!  Queues, something we used to have to manage ourselves, now forever delegated to the experts.  But we still need to track them, and know whether things are working correctly.  How to peel back that layer?
 
 <a href="https://azure.microsoft.com/en-us/services/storage/queues/">Azure Queues</a> are a cornerstone of our cloud-migration strategy at <a href="https://www.earthclassmail.com/" target="_blank">EarthClassMail</a>.  We use them in a couple ways: to queue work within a service, and as an async, resilient communication mechanism between services.  However, there isn't an built-in way (that we were able to find) to simply monitor queue size over a time period.  This is important information for monitoring the health of our system, and detecting bottlenecks and errors.
