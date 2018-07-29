@@ -8,17 +8,15 @@ Curious software developer, like to play music, listen to tons too.  Wife and I 
 
 recent Software:
 --- 
-* Creating a custom Nuget package, and hosting on a private feed
-* Building Azure Web services, and auto-deploying them to Azure via <a href="https://www.appveyor.com/">Appveyor</a>
-* Learning a large existing .Net architecture
-* Learning Rails on some existing sites
-* Dipping my toe in some clouds (AWS and Azure)
-* Learning <a href="https://jekyllrb.com/">Jekyll</a> and <a href="http://sass-lang.com/">Sass</a> (yay!  You're here!)
-* Truly Pair Programming for the first time in my life
-* Integrated some email with <a href="https://www.mandrill.com/">Mandrill</a>
+* Migrating a legacy .Net WCF "monolithic" app to Azure, with all that comes with that
+* Dabbling in Rails, Angular, Vue for some other front end assets
+* Learning "hardware" things via Arduino, with the goal of automated sprinkling in backyard, and a robotic guitar player.
+* Occasionally updating some iPhone apps in Objective C
 
 recent Music:
 --- 
+
+* <a href="https://www.youtube.com/watch?v=pFReaHGO120">Fingerpicking Blues</a> - I've been trying to hone some of these chops.  This guy is a really good teacher.
 
 * <a href="https://www.spotify.com/us/discoverweekly/">Spotify Discover Weekly</a> - While not an artist/album, this is worth special mention.  I'm a big fan of Spotify, and have found tons of new music on there.  This new feature will compile a playlist each week of music it "thinks" you will like, based on past listening preferences.  I feel like my new music discovery has gone into overdrive - so much good stuff out there!
 
@@ -46,6 +44,8 @@ recent Music:
 
 recent Books:
 --- 
+
+* <a href="https://www.amazon.com/Outsider-Novel-Stephen-King/dp/1501180983">Stephen King - The Outsider</a> - it's been years since I've read any Stephen King.  I've probably read *all* his older books, but he's probably written 5-10 in recent years that I haven't even thought about.  My wife picked this one up at the libary, and I swallowed it whole.  Now I'm going back and reading all his books I've neglected over the years.  He doesn't get much credit from "literary types", but his books are always a pleasure to me.
 
 * <a href="https://www.amazon.com/dp/B009Y4I4Y2/ref=dp-kindle-redirect?_encoding=UTF8&btkr=1">Paula McLain - The Paris Wife</a> - continuing my Ernest Hemingway journey, this is a "historical fiction" book written from the point of view of Papa's first wife, Hadley.  While there certainly has to be some "creative license" in some of the dialogue and events, it feels very real and accurate.  Great insight and portal into Hemingway's early/formative years as an author.
 
