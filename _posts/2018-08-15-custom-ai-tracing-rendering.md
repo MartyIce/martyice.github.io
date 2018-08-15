@@ -69,9 +69,7 @@ Here's what the (incredibly simple) UI looks like after clicking a few times:
 
 <h3>Querying Data</h3>
 
-App Insight's visualization capabilities are extensive, but don't currently support embedding an charts in an external system (I believe the MSFT recommendation is <a href="https://docs.microsoft.com/en-us/azure/application-insights/app-insights-export-power-bi">exporting to Power BI</a>).  However, they do support a <a href="https://dev.applicationinsights.io/">REST API</a> that can retrieve all the data, and with the plethora of javascript charting/graphing solutions, it's fairly straightforward wiring something up yourself.
-
-The <a href="https://github.com/Microsoft/ApplicationInsights-JS">App Insight Javascript SDK</a> doesn't appear to support querying data, but it's easy enough to wire up with a library like <a ref="https://github.com/axios/axios">Axios</a>.
+App Insight's visualization capabilities are extensive, but don't currently support embedding an charts in an external system (I believe the MSFT recommendation is <a href="https://docs.microsoft.com/en-us/azure/application-insights/app-insights-export-power-bi">exporting to Power BI</a>).  However, they do support a <a href="https://dev.applicationinsights.io/">REST API</a> that can retrieve all the data, and with the plethora of javascript charting/graphing solutions, it's fairly straightforward wiring something up yourself.  These examples are using the <a ref="https://github.com/axios/axios">Axios</a> JS library to invoke REST API calls.
 
 <h4>Javascript Chunk #3 - Establish Axios Bits</h4>
 
@@ -123,7 +121,7 @@ Here's a screenshot of the sample app, complete with a list of App Insights good
 
 <h3>Visualizing Data</h3>
 
-While the data we store and retrieve from App Insights can be very useful by itself, what's the point if we don't have a shiny, pretty graph?  This is easy to do with all the javascript libraries available.  For this example, I used Chart JS.
+While the data we store and retrieve from App Insights can be very useful by itself, what's the point if we don't have a shiny, pretty graph?  This is easy to do with all the javascript libraries available.  For this example, I used <a href="https://www.chartjs.org/">Chart JS</a>.
 
 ```javascript
             drawChart: function () {
@@ -167,7 +165,7 @@ And the colorful, vibrant result!
 <em>Wonderful, Snappy Graphics!</em>
 </p>
 
-While this data is a bit silly, it should illustrate how App Insights data can be captured and displayed.  There's something so satisfying about rendering these graphics!
+While this example is a bit silly, it should illustrate how App Insights data can be captured and displayed.  There's something so satisfying about rendering these graphics!
 
 <h3>From here...</h3>
 
