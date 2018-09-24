@@ -8,6 +8,7 @@ Curious software developer, like to play music, listen to tons too.  Wife and I 
 
 recent Software:
 --- 
+* Orchestrating Docker containers in Azure to perform batch processing.
 * Migrating a legacy .Net WCF "monolithic" app to Azure, with all that comes with that
 * Dabbling in Rails, Angular, Vue for some other front end assets
 * Learning "hardware" things via Arduino, with the goal of automated sprinkling in backyard, and a robotic guitar player.
@@ -15,6 +16,7 @@ recent Software:
 
 recent Music:
 --- 
+* Banjo!  Faster, more, better.  I've been able to play rhythm for a long time, but have dedicated myself to being able to play Scruggs style, at a fast rhythm.  <a href="https://www.youtube.com/watch?v=AJE3Vf4_2I0">Mighty Dark for Me To Travel</a> is an example of a song I've been trying to get faster with.
 
 * <a href="https://www.youtube.com/watch?v=pFReaHGO120">Fingerpicking Blues</a> - I've been trying to hone some of these chops.  This guy is a really good teacher.
 
@@ -44,6 +46,7 @@ recent Music:
 
 recent Books:
 --- 
+* <a href="https://www.amazon.com/Disaster-Artist-Inside-Greatest-Movie/dp/1451661193">Greg Sestero - The Disaster Artist</a> - I saw the movie first, loved it, and wanted to read the book.  The book is hilarious, found myself laughing out loud throughout.  Wife and kids kept asking me what was so funny.
 
 * <a href="https://www.amazon.com/Outsider-Novel-Stephen-King/dp/1501180983">Stephen King - The Outsider</a> - it's been years since I've read any Stephen King.  I've probably read *all* his older books, but he's probably written 5-10 in recent years that I haven't even thought about.  My wife picked this one up at the libary, and I swallowed it whole.  Now I'm going back and reading all his books I've neglected over the years.  He doesn't get much credit from "literary types", but his books are always a pleasure to me.
 
