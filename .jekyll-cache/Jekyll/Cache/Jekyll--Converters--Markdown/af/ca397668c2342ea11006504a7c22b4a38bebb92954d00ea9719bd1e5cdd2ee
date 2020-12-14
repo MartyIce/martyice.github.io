@@ -1,0 +1,166 @@
+I"e<h3>The Problem</h3>
+<p>We’ve seen the glory of App Insights.  We want the pretty charts, and all the deep tracking.  But we’re on a legacy system, not a cloud service running in Azure.  Are we forever out in the cold, looking through a window at the luxurious comfort within?</p>
+
+<p>Of course not!  Microsoft has an <a href="https://docs.microsoft.com/en-us/azure/application-insights/app-insights-platforms">extensive list of libraries</a> that will push data to App Insights from a wide variety of application frameworks.  They also offer a <a href="https://dev.applicationinsights.io/">REST API</a> to query that data (similar to queries you can run within <a href="https://docs.microsoft.com/en-us/azure/application-insights/app-insights-analytics">App Insights Analytics</a>).</p>
+
+<p>This post will narrate a <a href="https://github.com/MartyIce/AppInsightsDemo">small application</a> that demonstrates two things:</p>
+
+<ul>
+  <li>publishing custom info to App Insights (in this case, from javascript)</li>
+  <li>querying App Insights and feeding the results into a “non-App-Insights” graphic solution (again, in javascript using a REST API and ChartJS)</li>
+</ul>
+
+<p>While the example is simple and somewhat meaningless, it should provide a starting point for developers looking to do REAL things with App Insights.</p>
+
+<h3>Collecting Information</h3>
+
+<p>Simply put, the <a href="https://github.com/Microsoft/ApplicationInsights-dotnet">App Insights SDK</a> allows us to send data to Azure App Insights.  There are several categories of information we can record:</p>
+
+<ul>
+  <li>Requests - timings, environment info, as well as custom telemetry info</li>
+  <li>Exceptions - log all types of exceptions from an application</li>
+  <li>Custom Events - collect anything under the sun about an application</li>
+  <li>Custom Metrics - numbers, numbers, numbers, measure and track history.</li>
+  <li>Performance Counters - performance logs from servers</li>
+</ul>
+
+<p>…and much more.  This information is covered in more detail <a href="https://docs.microsoft.com/en-us/azure/application-insights/app-insights-overview">here</a>.</p>
+
+<p>The sample app uses the <a href="https://github.com/Microsoft/ApplicationInsights-JS">App Insights Javascript SDK</a> to send custom events to App Insights.  This can be accomplished with a few chunks of javascript…</p>
+
+<h4>Javascript Chunk #1 - Initialization</h4>
+
+<p>Using a garbled, impossible to read javascript snippet provided by Microsoft, we initialize our JS environment for writing to App Insights (and establish the <strong>window.appInsights</strong> variable in the process):</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="dl">"</span><span class="s2">text/javascript</span><span class="dl">"</span><span class="o">&gt;</span>
+    <span class="kd">var</span> <span class="nx">appInsights</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">appInsights</span> <span class="o">||</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">function</span> <span class="nx">b</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span> <span class="nx">c</span><span class="p">[</span><span class="nx">a</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">arguments</span><span class="p">;</span> <span class="nx">c</span><span class="p">.</span><span class="nx">queue</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="nx">c</span><span class="p">[</span><span class="nx">a</span><span class="p">].</span><span class="nx">apply</span><span class="p">(</span><span class="nx">c</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">})</span> <span class="p">}</span> <span class="p">}</span> <span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="p">{</span> <span class="na">config</span><span class="p">:</span> <span class="nx">a</span> <span class="p">},</span> <span class="nx">d</span> <span class="o">=</span> <span class="nb">document</span><span class="p">,</span> <span class="nx">e</span> <span class="o">=</span> <span class="nb">window</span><span class="p">;</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">script</span><span class="dl">"</span><span class="p">);</span> <span class="nx">b</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">url</span> <span class="o">||</span> <span class="dl">"</span><span class="s2">https://az416426.vo.msecnd.net/scripts/a/ai.0.js</span><span class="dl">"</span><span class="p">,</span> <span class="nx">d</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="dl">"</span><span class="s2">script</span><span class="dl">"</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span> <span class="p">});</span> <span class="k">try</span> <span class="p">{</span> <span class="nx">c</span><span class="p">.</span><span class="nx">cookie</span> <span class="o">=</span> <span class="nx">d</span><span class="p">.</span><span class="nx">cookie</span> <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span> <span class="nx">c</span><span class="p">.</span><span class="nx">queue</span> <span class="o">=</span> <span class="p">[];</span> <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="p">[</span><span class="dl">"</span><span class="s2">Event</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Exception</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Metric</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">PageView</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Trace</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Dependency</span><span class="dl">"</span><span class="p">];</span> <span class="nx">f</span><span class="p">.</span><span class="nx">length</span><span class="p">;)</span><span class="nx">b</span><span class="p">(</span><span class="dl">"</span><span class="s2">track</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">f</span><span class="p">.</span><span class="nx">pop</span><span class="p">());</span> <span class="k">if</span> <span class="p">(</span><span class="nx">b</span><span class="p">(</span><span class="dl">"</span><span class="s2">setAuthenticatedUserContext</span><span class="dl">"</span><span class="p">),</span> <span class="nx">b</span><span class="p">(</span><span class="dl">"</span><span class="s2">clearAuthenticatedUserContext</span><span class="dl">"</span><span class="p">),</span> <span class="nx">b</span><span class="p">(</span><span class="dl">"</span><span class="s2">startTrackEvent</span><span class="dl">"</span><span class="p">),</span> <span class="nx">b</span><span class="p">(</span><span class="dl">"</span><span class="s2">stopTrackEvent</span><span class="dl">"</span><span class="p">),</span> <span class="nx">b</span><span class="p">(</span><span class="dl">"</span><span class="s2">startTrackPage</span><span class="dl">"</span><span class="p">),</span> <span class="nx">b</span><span class="p">(</span><span class="dl">"</span><span class="s2">stopTrackPage</span><span class="dl">"</span><span class="p">),</span> <span class="nx">b</span><span class="p">(</span><span class="dl">"</span><span class="s2">flush</span><span class="dl">"</span><span class="p">),</span> <span class="o">!</span><span class="nx">a</span><span class="p">.</span><span class="nx">disableExceptionTracking</span><span class="p">)</span> <span class="p">{</span> <span class="nx">f</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">onerror</span><span class="dl">"</span><span class="p">,</span> <span class="nx">b</span><span class="p">(</span><span class="dl">"</span><span class="s2">_</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">f</span><span class="p">);</span> <span class="kd">var</span> <span class="nx">g</span> <span class="o">=</span> <span class="nx">e</span><span class="p">[</span><span class="nx">f</span><span class="p">];</span> <span class="nx">e</span><span class="p">[</span><span class="nx">f</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">d</span><span class="p">,</span> <span class="nx">e</span><span class="p">,</span> <span class="nx">h</span><span class="p">)</span> <span class="p">{</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">g</span> <span class="o">&amp;&amp;</span> <span class="nx">g</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">d</span><span class="p">,</span> <span class="nx">e</span><span class="p">,</span> <span class="nx">h</span><span class="p">);</span> <span class="k">return</span> <span class="o">!</span><span class="mi">0</span> <span class="o">!==</span> <span class="nx">i</span> <span class="o">&amp;&amp;</span> <span class="nx">c</span><span class="p">[</span><span class="dl">"</span><span class="s2">_</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">f</span><span class="p">](</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">d</span><span class="p">,</span> <span class="nx">e</span><span class="p">,</span> <span class="nx">h</span><span class="p">),</span> <span class="nx">i</span> <span class="p">}</span> <span class="p">}</span> <span class="k">return</span> <span class="nx">c</span>
+    <span class="p">}({</span>
+        <span class="na">instrumentationKey</span><span class="p">:</span> <span class="dl">'</span><span class="s1">@ViewData.Model.AppInsightsKey</span><span class="dl">'</span>
+    <span class="p">});</span>
+
+    <span class="nb">window</span><span class="p">.</span><span class="nx">appInsights</span> <span class="o">=</span> <span class="nx">appInsights</span><span class="p">,</span> <span class="nx">appInsights</span><span class="p">.</span><span class="nx">queue</span> <span class="o">&amp;&amp;</span> <span class="mi">0</span> <span class="o">===</span> <span class="nx">appInsights</span><span class="p">.</span><span class="nx">queue</span><span class="p">.</span><span class="nx">length</span> <span class="o">&amp;&amp;</span> <span class="nx">appInsights</span><span class="p">.</span><span class="nx">trackPageView</span><span class="p">();</span>
+<span class="o">&lt;</span><span class="sr">/script</span><span class="err">&gt;
+</span></code></pre></div></div>
+
+<p>Note the “instrumentationKey” value is obtained from the App Insight instance within Azure Portal, and is populated here by an MVC view model variable.</p>
+
+<h4>Javascript Chunk #2 - Writing the Event</h4>
+
+<p>With the <strong>appInsights</strong> variable established, we can use it to write all the different types of information to App Insights.  In this example, the code is logging a custom event containing “clickCount” and a message (from within a Vue click handler):</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">this</span><span class="p">.</span><span class="nx">clickCount</span><span class="o">++</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">properties</span> <span class="o">=</span> <span class="p">{</span><span class="dl">"</span><span class="s2">message</span><span class="dl">"</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">appInsightsMessage</span> <span class="p">};</span>
+    <span class="kd">var</span> <span class="nx">metrics</span> <span class="o">=</span> <span class="p">{</span><span class="dl">"</span><span class="s2">clickCount</span><span class="dl">"</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">clickCount</span> <span class="p">};</span>
+    <span class="nx">appInsights</span><span class="p">.</span><span class="nx">trackEvent</span><span class="p">(</span><span class="dl">"</span><span class="s2">IndexClick</span><span class="dl">"</span><span class="p">,</span> <span class="nx">properties</span><span class="p">,</span> <span class="nx">metrics</span><span class="p">);</span>
+    <span class="nx">appInsights</span><span class="p">.</span><span class="nx">flush</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Here’s what the (incredibly simple) UI looks like after clicking a few times:</p>
+
+<p>
+<img src="/images/custom-ai-tracing-rendering/recording-clicks.png" alt="Recording Clicks" style="border:1px solid black" /><br />
+<em>Recording Clicks</em>
+</p>
+
+<h3>Querying Data</h3>
+
+<p>App Insight’s visualization capabilities are extensive, but don’t currently support embedding an charts in an external system (I believe the MSFT recommendation is <a href="https://docs.microsoft.com/en-us/azure/application-insights/app-insights-export-power-bi">exporting to Power BI</a>).  However, they do support a <a href="https://dev.applicationinsights.io/">REST API</a> that can retrieve all the data, and with the plethora of javascript charting/graphing solutions, it’s fairly straightforward wiring something up yourself.  These examples are using the <a ref="https://github.com/axios/axios">Axios</a> JS library to invoke REST API calls.</p>
+
+<h4>Javascript Chunk #3 - Establish Axios Bits</h4>
+
+<p>To begin, we’ll setup a variable that contains the necessary “base” information for our query to the App Insights REST API:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c1">// Establish our "base" URL, complete with App Insights keys provided by MVC View Model variable:</span>
+    <span class="nx">appInsightsUrl</span> <span class="o">=</span> <span class="nx">axios</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+        <span class="na">baseURL</span><span class="p">:</span> <span class="dl">'</span><span class="s1">https://api.applicationinsights.io/v1/apps/@ViewData.Model.AppInsightsApplicationId</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+            <span class="dl">'</span><span class="s1">x-api-key</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">@ViewData.Model.AppInsightsRestApiKey</span><span class="dl">'</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+</code></pre></div></div>
+
+<p>Again, the keys are obtained from the App Insight instance within Azure Portal, and are populated with MVC view model variables.</p>
+
+<h4>Javascript Chunk #4 - Querying with REST API</h4>
+
+<p>And within another Vue click event handler, we can do the following to query App Insights:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">var</span> <span class="nb">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+    <span class="nb">self</span><span class="p">.</span><span class="nx">loading</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="c1">// Query is a URL encoded represetion of "customEvents | order by timestamp desc", and the "timespan" parameter</span>
+    <span class="c1">//  limits results to past 24 hours.</span>
+    <span class="nx">appInsightsUrl</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">query?timespan=PT24H&amp;query=customEvents%20|%20order%20by%20timestamp%20desc</span><span class="dl">'</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">events</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">tables</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">rows</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">i</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="p">{</span>
+                    <span class="na">timestamp</span><span class="p">:</span> <span class="nx">i</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="na">clickCount</span><span class="p">:</span> <span class="nx">i</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="p">?</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">i</span><span class="p">[</span><span class="mi">4</span><span class="p">]).</span><span class="nx">clickCount</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">?</span><span class="dl">"</span><span class="p">,</span>
+                    <span class="na">message</span><span class="p">:</span> <span class="nx">i</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="p">?</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">i</span><span class="p">[</span><span class="mi">3</span><span class="p">]).</span><span class="nx">message</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">?</span><span class="dl">"</span>
+                <span class="p">}</span>
+            <span class="p">});</span>
+            <span class="nb">self</span><span class="p">.</span><span class="nx">loading</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="p">})</span>
+        <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">e</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="nb">self</span><span class="p">.</span><span class="nx">loading</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="p">});</span>
+</code></pre></div></div>
+
+<p>Here’s a screenshot of the sample app, complete with a list of App Insights goodness:</p>
+
+<p>
+<img src="/images/custom-ai-tracing-rendering/simple-ai-render.png" alt="Simple App Insights Rendering Goodness" style="border:1px solid black" /><br />
+<em>Simple App Insights Rendering Goodness</em>
+</p>
+
+<h3>Visualizing Data</h3>
+
+<p>While the data we store and retrieve from App Insights can be very useful by itself, what’s the point if we don’t have a shiny, pretty graph?  This is easy to do with all the javascript libraries available.  For this example, I used <a href="https://www.chartjs.org/">Chart JS</a>.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>            <span class="nx">drawChart</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                <span class="c1">// Render a chart from our app insights data</span>
+                <span class="kd">var</span> <span class="nx">ctx</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">myChart</span><span class="dl">"</span><span class="p">).</span><span class="nx">getContext</span><span class="p">(</span><span class="dl">'</span><span class="s1">2d</span><span class="dl">'</span><span class="p">);</span>
+                <span class="k">new</span> <span class="nx">Chart</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="p">{</span>
+                    <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">line</span><span class="dl">'</span><span class="p">,</span>
+                    <span class="na">data</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="na">datasets</span><span class="p">:</span> <span class="p">[</span>
+                            <span class="p">{</span>
+                                <span class="na">label</span><span class="p">:</span> <span class="dl">'</span><span class="s1">App Insights Clicks</span><span class="dl">'</span><span class="p">,</span>
+                                <span class="na">backgroundColor</span><span class="p">:</span> <span class="dl">"</span><span class="s2">#00FF00</span><span class="dl">"</span><span class="p">,</span>
+                                <span class="na">borderColor</span><span class="p">:</span> <span class="dl">"</span><span class="s2">#0000FF</span><span class="dl">"</span><span class="p">,</span>
+                                <span class="c1">// Map data to fit what chartJS timeline is expecting</span>
+                                <span class="na">data</span><span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">events</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">e</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                                        <span class="k">return</span> <span class="p">{</span>
+                                            <span class="na">x</span><span class="p">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">timestamp</span><span class="p">),</span>
+                                            <span class="na">y</span><span class="p">:</span> <span class="nx">e</span><span class="p">.</span><span class="nx">clickCount</span>
+                                        <span class="p">};</span>
+                                    <span class="p">})</span>
+                            <span class="p">}</span>
+                            <span class="p">]</span>
+                    <span class="p">},</span>
+                    <span class="na">options</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="na">scales</span><span class="p">:</span> <span class="p">{</span>
+                            <span class="na">xAxes</span><span class="p">:</span> <span class="p">[{</span>
+                                <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">time</span><span class="dl">'</span><span class="p">,</span>
+                                <span class="na">distribution</span><span class="p">:</span> <span class="dl">'</span><span class="s1">linear</span><span class="dl">'</span>
+                            <span class="p">}]</span>
+                        <span class="p">}</span>
+                    <span class="p">}</span>
+                <span class="p">});</span>
+
+            <span class="p">}</span>
+</code></pre></div></div>
+
+<p>And the colorful, vibrant result!</p>
+
+<p>
+<img src="/images/custom-ai-tracing-rendering/graphed-ai-render.png" alt="Wonderful, Snappy Graphics!" style="border:1px solid black" /><br />
+<em>Wonderful, Snappy Graphics!</em>
+</p>
+
+<p>While this example is a bit silly, it should illustrate how App Insights data can be captured and displayed.  There’s something so satisfying about rendering these graphics!</p>
+
+<h3>From here...</h3>
+
+<p>Hopefully this sample exercise lends some ideas towards how to use App Insights to capture application data, and render it in a useful manner in a custom application.  Thanks for reading!</p>
+:ET

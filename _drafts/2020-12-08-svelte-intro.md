@@ -5,7 +5,6 @@ tweetText: A high level walkthrough of Svelte, and using it to create "Cyberneti
 ---
 
 <h3>What Is Svelte?</h3>
-
 [Svelte][svelte] is a new-ish JS component framework (first released in 2016) created by [Rich Harris][rich harris twitter].  Similar to frameworks like [React][react] and [Vue][vue], Svelte is a [reactive][reactive] framework.  While new and not as well known, Svelte is starting to gain significant traction.  It touts performance and simplicity, and features first-rate documentation and tutorials.  It's community and ecosystem are growing rapidly.
 
 <h3>Reactivity</h3>

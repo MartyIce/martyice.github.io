@@ -1,0 +1,147 @@
+I">,<h3>The Problem</h3>
+<p>The magic of the cloud - infrastructure on demand!  Spin up the queues, and stack up the messages!  Queues, something we used to have to manage ourselves, now forever delegated to the experts.  But we still need to track them, and know whether things are working correctly.  How to peel back that layer?</p>
+
+<p><a href="https://azure.microsoft.com/en-us/services/storage/queues/">Azure Queues</a> are a cornerstone of our cloud-migration strategy at <a href="https://www.earthclassmail.com/" target="_blank">EarthClassMail</a>.  We use them in a couple ways: to queue work within a service, and as an async, resilient communication mechanism between services.  However, there isn’t an built-in way (that we were able to find) to simply monitor queue size over a time period.  This is important information for monitoring the health of our system, and detecting bottlenecks and errors.</p>
+
+<h3>When in Doubt, Add More Cloud</h3>
+
+<p>Thankfully, there are other pieces of Azure we can use to roll a custom monitoring solution.  Using some simple Azure code and configuration, we can easily create a graph showing our queue sizes over time:</p>
+
+<p>
+<img src="/images/queue-size-tracking/queue-chart-image.png" alt="Queue Timeline" />
+<em>Queue Sizes Timeline</em>
+</p>
+
+<p>This implementation consists of a few components:</p>
+
+<ul>
+  <li><strong>Azure Function</strong> - periodically polls the queue sizes, and logs results to App Insights</li>
+  <li><strong>App Insights</strong> - records the results, and turns them into a pretty chart</li>
+  <li><strong>Azure Dashboard</strong> - centralized location for displaying the chart</li>
+</ul>
+
+<p>A bonus gained implementing the above was it gave us the excuse and opportunity to explore and learn new Azure things!  Let’s roll up our sleeves…</p>
+
+<h3>Azure Function - Query the Queues</h3>
+
+<p><a href="https://azure.microsoft.com/en-us/blog/introducing-azure-functions/">Azure Functions</a> allow us to quickly spin up <a href="https://martinfowler.com/articles/microservices.html">micro services</a> that perform smaller, specialized tasks, in a compartmentalized fashion.  They are effectively a small “slice” of a full web app, with Azure handling most of the infrastructure and setup concerns under the covers.</p>
+
+<p>For this project, we created a function to periodically retrieve the “approximate” message count for a list of queues.  It looks like this:</p>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Reference external assembly</span>
+<span class="c1">// https://docs.microsoft.com/en-us/azure/azure-functions/functions-reference-csharp#referencing-external-assemblies</span>
+<span class="err">#</span><span class="n">r</span> <span class="s">"Microsoft.WindowsAzure.Storage"</span>
+
+<span class="c1">// Standard .Net "usings"</span>
+<span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Microsoft.WindowsAzure.Storage</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Microsoft.ApplicationInsights</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Microsoft.ApplicationInsights.Extensibility</span><span class="p">;</span>
+
+<span class="c1">// TelemetryClient for sending info to AI.</span>
+<span class="c1">// Substitute your "InstrumentationKey" here:</span>
+<span class="k">private</span> <span class="k">static</span> <span class="n">TelemetryClient</span> <span class="n">_client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">TelemetryClient</span><span class="p">()</span> <span class="p">{</span> <span class="n">InstrumentationKey</span> <span class="p">=</span> <span class="s">"&lt;InstrumentationKey&gt;"</span> <span class="p">};</span>
+
+<span class="c1">// This function will run on a periodic basis (timer config displayed in screenshot below)</span>
+<span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Run</span><span class="p">(</span><span class="n">TimerInfo</span> <span class="n">myTimer</span><span class="p">,</span> <span class="n">TraceWriter</span> <span class="n">log</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// This will log a Trace to the App Insights instance ASSOCIATED WITH THIS FUNCTION (not necessarily</span>
+    <span class="c1">//  the same AI instance referenced by our "_client" variable!)</span>
+    <span class="n">log</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">$"MonitorScanQueues function executed at: </span><span class="p">{</span><span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span><span class="p">}</span><span class="s">"</span><span class="p">);</span>
+
+    <span class="c1">// connect to Azure Storage</span>
+    <span class="kt">var</span> <span class="n">connectionString</span> <span class="p">=</span> <span class="s">"&lt;AzureStorageConnectionString&gt;"</span><span class="p">;</span>
+    <span class="kt">var</span> <span class="n">account</span> <span class="p">=</span> <span class="n">CloudStorageAccount</span><span class="p">.</span><span class="nf">Parse</span><span class="p">(</span><span class="n">connectionString</span><span class="p">);</span>
+    <span class="kt">var</span> <span class="n">queueClient</span> <span class="p">=</span> <span class="n">account</span><span class="p">.</span><span class="nf">CreateCloudQueueClient</span><span class="p">();</span>
+
+    <span class="c1">// List of Queues we want to poll</span>
+    <span class="kt">var</span> <span class="n">myQueues</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">string</span><span class="p">[]</span> <span class="p">{</span> 
+            <span class="s">"my-queue-1"</span><span class="p">,</span>
+            <span class="s">"my-queue-2"</span><span class="p">,</span>
+            <span class="s">"my-queue-another"</span><span class="p">,</span>
+            <span class="s">"my-queue-error"</span><span class="p">,</span>
+            <span class="s">"my-queue-random"</span>
+         <span class="p">};</span>
+
+    <span class="c1">// Loop through queues</span>
+    <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">queueName</span> <span class="k">in</span> <span class="n">myQueues</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// get a reference to the queue and retrieve the queue length</span>
+        <span class="kt">var</span> <span class="n">queue</span> <span class="p">=</span> <span class="n">queueClient</span><span class="p">.</span><span class="nf">GetQueueReference</span><span class="p">(</span><span class="n">queueName</span><span class="p">);</span>
+        <span class="n">queue</span><span class="p">.</span><span class="nf">FetchAttributes</span><span class="p">();</span>
+        <span class="kt">var</span> <span class="n">length</span> <span class="p">=</span> <span class="n">queue</span><span class="p">.</span><span class="n">ApproximateMessageCount</span><span class="p">;</span>
+
+        <span class="c1">// Track the count as a metric within App Insights (the App Insights instance specified by &lt;InstrumentationKey&gt; above)</span>
+        <span class="n">_client</span><span class="p">.</span><span class="nf">TrackMetric</span><span class="p">(</span><span class="s">$"Queue length - </span><span class="p">{</span><span class="n">queueName</span><span class="p">}</span><span class="s">"</span><span class="p">,</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">length</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The timer that triggers the function is configured in the “Integrate” section of the Azure Function administration:</p>
+
+<p>
+<img src="/images/queue-size-tracking/timer-based-function.png" alt="Timer Based Function" />
+<em>Triggered by Timer</em>
+</p>
+
+<p>The “Schedule” parameter is a standard <a href="https://www.freeformatter.com/cron-expression-generator-quartz.html">chron expression</a> used to define a time interval.  In this screenshot, we’re executing our function once a minute.</p>
+
+<h3>App Insights - Make it Pretty</h3>
+
+<p>The code sample above logs App Insights <a href="https://docs.microsoft.com/en-us/azure/application-insights/app-insights-metrics-explorer">Metrics</a> that capture the size of our queues every minute.</p>
+
+<p>When viewed within App Insights Analytics, these results will look something like this:</p>
+
+<p>
+<img src="/images/queue-size-tracking/queue-data.png" alt="Raw Queue Data" />
+<em>Lots and Lots of Meaningless Data</em>
+</p>
+
+<p>That view is pretty boring, but becomes much cooler with a simple “render” statement at the end of our query:</p>
+
+<p>
+<img src="/images/queue-size-tracking/queue-chart.png" alt="Queue Data Visualized" />
+<em>Snappy, Informative Visual!</em>
+</p>
+
+<p>In addition to being easy on the eyes, this chart provides visual cues that immediately leap off the page, allowing us to view trends.  They are also more consumable by “non-techies”.  Big win!</p>
+
+<p>The final step here is to put this chart somewhere readily accessible, so we only need to write the query once….</p>
+
+<h3>Azure Dashboard - Share and Share Alike</h3>
+
+<p>This step is actually very simple - by clicking the “pin” icon in the upper right of the chart:</p>
+
+<p>
+<img src="/images/queue-size-tracking/pin-the-chart.png" alt="Pin the Chart" /><br />
+<em>Pin the Chart on the Dashboard</em>
+</p>
+
+<p>You can select an <a href="https://docs.microsoft.com/en-us/azure/azure-portal/azure-portal-dashboards">Azure Dashboard</a> on which to pin the chart.  Dashboards are displayed when logging into Azure Portal, and offer high-level views of interesting information in your system.  You can have multiple Dashboards (eg, “Operations”, “Development”, “Sales”, etc).   In addition to other built-in Azure “information widgets”, App Insight results (raw data or visualizations) are part of what you can put there.  Very slick!</p>
+
+<p>Once our chart is pinned, logging into Azure Portal displays it, front and center:</p>
+
+<p>
+<img src="/images/queue-size-tracking/dashboard.png" alt="All Charts, All the Time" />
+<em>All Charts, All the Time</em>
+</p>
+
+<p>The 4 icons on the right of each chart are:</p>
+
+<p>
+<img src="/images/queue-size-tracking/four-icons.png" alt="The Four Icons" /><br />
+</p>
+
+<ul>
+  <li>Refresh - pull new information from AI, and refresh the display</li>
+  <li>Edit Title - provide more meaningful title for the chart</li>
+  <li>Edit Query - edit the query inline to tweak your results</li>
+  <li>Open Chart in Analytics - open the analytics UI to edit/refine your query and chart</li>
+</ul>
+
+<p>Big, easy power!</p>
+
+<h3>Up Next - Logging from "Legacy"</h3>
+
+<p>Thanks for reading, and stay tuned, as the next post will describe how you can get existing .Net code (not running within Azure) to write all these powerful App Insights traces yourself, and start to harness the power!</p>
+:ET

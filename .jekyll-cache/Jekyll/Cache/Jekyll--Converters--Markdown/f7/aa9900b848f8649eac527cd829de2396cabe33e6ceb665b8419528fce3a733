@@ -1,0 +1,27 @@
+I"�<h3>Welcome to 100 Days of Javascript!</h3>
+<p>I’ve danced and dabbled with <a href="https://developer.mozilla.org/en-US/docs/Web/javascript">Javascript</a> for years.  Plain old javascript, <a href="https://jquery.com/">JQuery</a>, <a href="https://angularjs.org/">Angular</a>, <a href="https://vuejs.org/">Vue</a>, along with an assortment of other frameworks.  But I still consider myself a Javascript newbie.  I know enough to be dangerous, but don’t trust myself with the “bigger decisions”.  Today I’ve decided to take the necessary steps to change this.</p>
+
+<p>I am embarking on a journey to remake myself as a Javascript expert.  I will dig deeply into the bigger frameworks (<a href="https://svelte.dev">Svelte</a>, <a href="https://reactjs.org/">React</a>, <a href="https://vuejs.org/">Vue</a>, <a href="https://www.typescriptlang.org/">Typescript</a>, etc).  Additionally, I will explore “side missions”, and gain familiarity with smaller frameworks and topics.  There seems to <a href="https://www.npmjs.com/">be no shortage</a> of JS frameworks, tools, and concepts to write about, and more are added every day.  I’m considering this an open-ended adventure, and am in it for the long haul.  It’s possible the day could come when I’ll have “JAVA” and “SCRIPT” tatooed across my knuckles.</p>
+
+<p>My goal is ambitious, and I don’t think 100 days will be enough.  However, it will establish the necessary regiment, build my “learning endurance”, and provide future direction after the first 100 days.  I will attempt to devote at least 30 minutes each day to this endeavour.  As part of the effort, I will track my progress and future ideas in this <a href="https://docs.google.com/spreadsheets/d/12cED_0oe0oP5jsRQz4VlLb3kbgJmbdzauJ4cv20YbYY/edit?usp=sharing">Google Sheet</a>.</p>
+
+<h3>The Blog</h3>
+<p>Along the way, I will also document my journey here, in this blog.  These posts may be as brief as a short paragraph, like a diary (“Today, I learned XYZ.  Here are a few sentences describing what it does”).  Or there may be a series of posts about a single, larger concept (“Svelte.  It’s Sveltey”).  I’m initially playing this loose, and won’t strictly define the format.  Style and format may evolve with time, though.  I will make every attempt to introduce <em>new</em> information with my posts, rather than rehashing instruction manuals.  I will be writing for volume, rather than perfection.  So there may be some uncomfortable sentences.  How awkward.</p>
+
+<h3>Building An Audience</h3>
+<p>As an auxiliary experiment alongside the blog, I’ll be sharing my posts on social media, primarly <a href="https://twitter.com/MartyIce">Twitter</a> and <a href="https://www.linkedin.com/in/martymavis/">LinkedIn</a>.  My goal is to build an audience, and establish myself as a respected Javascript resource.  I reserve the right to write about this process as well.  It won’t all be Javascript.  In fact, if I am thinking about ham sandwiches on a particular day, I <em>will</em> write about ham sandwiches.  For they are the fuel that powers my learning about Javascript.</p>
+
+<h3>A Gripping Svelte Drama</h3>
+<p>I’ve been playing with Svelte recently, and I’m planning to start the exploration there.  <a href="https://svelte.dev/tutorial/basics">Svelte’s documentation</a> is already top notch.  If I’m going to add to it (rather than restate it), I’ll need to be creative.  Perhaps a story about a company considering it for their tech stack (ala <a href="https://www.amazon.com/Phoenix-Project-DevOps-Helping-Business/dp/0988262592">The Pheonix Project</a>?).  Will the hero of our story convince the stodgy corporate muckety-mucks to embrace something new and bold?  Will he impress his cute co-worker over in accounting?  Will Marty’s fiction suck?!  Only time will tell!</p>
+
+<h3>Thoughts &amp; Notes</h3>
+<p>I’m planning on including a “thoughts &amp; notes” section at the end of some posts.  Some sort of meta “here’s what I was thinking when I wrote this post” concept.  Not considered part of the post itself - more like footnotes.  You are reading an example of this right now.  You still are, whether you want to or not.  You cannot look away.</p>
+
+<h3>Thank You!</h3>
+<p>Thank you for reading this far.  It ain’t gonna be pretty at times, but hopefully I can provide enough value and entertainment to keep you coming back for more.</p>
+
+<p>Please DM me on Twitter (https://twitter.com/MartyIce) with any feedback, suggestions, and questions.</p>
+
+<p>Happy reading!</p>
+
+:ET
