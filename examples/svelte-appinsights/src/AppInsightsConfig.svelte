@@ -1,11 +1,10 @@
 <script>
-    export let appInsightsApplicationId;
-    export let appInsightsSecretKey;
+    import { secretKey, appId } from './stores.js';
 </script>
 
 <div>
-    ApplicationId: <input value={appInsightsApplicationId} />
+    ApplicationId: <input value={$appId} />
 </div>
 <div>
-    ApplicationSecretKey: <input value={appInsightsSecretKey} />
+    ApplicationSecretKey: <input value={$secretKey} />
 </div>

@@ -1,23 +1,14 @@
 <script>
 
-	let appInsightsQuery = 'requests'
-
-	let appInsightsStore = {
-		appInsightsSecretKey: '',
-		appInsightsApplicationId: '',
-	}
-
 	import AppInsightsConfig from './AppInsightsConfig.svelte';
 	import AppInsightsQuery from './AppInsightsQuery.svelte';
 	import AppInsightsResults from './AppInsightsResults.svelte';
-
-	$: console.log(`query: ${appInsightsQuery}`);
 </script>
 
 <main>
-	<AppInsightsConfig {...appInsightsStore} />
-	<AppInsightsQuery appInsightsQuery={appInsightsQuery} />
-	<AppInsightsResults {...appInsightsStore} appInsightsQuery={appInsightsQuery} />
+	<AppInsightsConfig />
+	<AppInsightsQuery />
+	<AppInsightsResults />
 </main>
 
 <style>
