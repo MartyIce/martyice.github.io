@@ -159,7 +159,7 @@ Svelte allows you to [bind variables directly to DOM elements][svelte bind this]
 Extending the "data flows downhill" concept we explored in standard input bindings above, you can also [bind custom properties on child components][svelte component binding].  This allows changes to a custom child component to propagate back to the parent.  The tutorial offers a warning about doing so, however - if you rely on component binding, it can be difficult to track the flow of data around your application.  For complex data binding scenarios, it is recommend to explore using something like [stores][svelte stores] to manage your application state.  This will also be covered in a future post.
 
 <h3>Summary</h3>
-And that's it for Bindings!  With these in your toolbelt, you can begin to add serious functionality to a web UI.  This is where I delved into my first experiment, a Svelte UI for rendering Azure Application Insights graphs.  The [Azure Portal][azure portal] provides a powerful mechanism for interacting with Azure resources, but one disappointment has been that their Application Insights graphs don't render in the mobile web view.  I used this as an opportunity to combine Svelte, [ChartJS][chartjs], and [Application Insights REST API][application insights restapi] to provide a simple chart for App Insights in the mobile web.  
+And that's it for Bindings!  With these in your toolbelt, you can begin to add serious functionality to a web UI.  This is where I delved into my first experiment, a Svelte UI for rendering Azure Application Insights graphs.  The [Azure Portal][azure portal] provides a powerful mechanism for interacting with Azure resources, but one disappointment has been that their Application Insights graphs don't render in the mobile web view.  I used this as an opportunity to combine Svelte, [ChartJS][chartjs], and [Application Insights REST API][application insights restapi] to [provide a simple chart for App Insights in the mobile web][svelte app insights app].  
 
 <h3>Thoughts & Notes</h3>
 
@@ -196,3 +196,4 @@ And that's it for Bindings!  With these in your toolbelt, you can begin to add s
 [azure portal]: https://azure.microsoft.com/en-us/features/azure-portal/
 [chartjs]: https://www.chartjs.org/
 [application insights restapi]: https://docs.microsoft.com/en-us/rest/api/application-insights/
+[svelte app insights app]: https://martyice.github.io/examples/svelte-appinsights/public/index.html
