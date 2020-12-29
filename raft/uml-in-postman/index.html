@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Generating UML Diagrams with Postman – The World o' Curtis Mavis – Code, Music, Kids, Sleep</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="The Problem
+You hold an architectural idea in your head, but are struggling to communicate it.  Team members think differently about what things are called, where they live, and how they tie together.  Someone erased the whiteboard (and what was there was impossible to read a few days later anyway).  You’ve seen diagramming used in other places, but you don’t want to install some crappy tool with an impossible user interface (and what do all those symbols mean anyway?!).
+" />
+    <meta property="og:description" content="The Problem
+You hold an architectural idea in your head, but are struggling to communicate it.  Team members think differently about what things are called, where they live, and how they tie together.  Someone erased the whiteboard (and what was there was impossible to read a few days later anyway).  You’ve seen diagramming used in other places, but you don’t want to install some crappy tool with an impossible user interface (and what do all those symbols mean anyway?!).
+" />
+    
+    <meta name="author" content="The World o' Curtis Mavis" />
+
+    
+    <meta property="og:title" content="Generating UML Diagrams with Postman" />
+    <meta property="twitter:title" content="Generating UML Diagrams with Postman" />
+    
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-75390437-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title="The World o' Curtis Mavis - Code, Music, Kids, Sleep" href="/feed.xml" />
+    <link rel="shortcut icon" type="image/png" href="/images/favicon.png">
+    <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
+  </head>
+
+  <body>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/jongriffin" class="site-avatar"><img src="/images/Curtis.png" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/">The World o' Curtis Mavis</a></h1>
+            <p class="site-description">Code, Music, Kids, Sleep</p>
+          </div>
+
+          <nav>
+            <a href="/">Blog</a>
+            <a href="/about">About</a>
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+
+	<div class="social-button">
+		<a href="https://twitter.com/share" class="twitter-share-button" data-text="Generating UML Diagrams with Postman" data-via="MartyIce" data-size="large">Tweet</a>
+		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  </div>
+  <br />
+  <div style="margin-top: 10px"/>
+	<div class="social-button" >
+    <script src="https://platform.linkedin.com/in.js" type="text/javascript">lang: en_US</script>
+    <script type="IN/Share" data-url="http://localhost:4000/uml-in-postman/"></script>
+  </div>
+
+  <h1>Generating UML Diagrams with Postman</h1>
+
+  <div class="entry">
+    <h3>The Problem</h3>
+<p>You hold an architectural idea in your head, but are struggling to communicate it.  Team members think differently about what things are called, where they live, and how they tie together.  Someone erased the whiteboard (and what was there was impossible to read a few days later anyway).  You’ve seen diagramming used in other places, but you don’t want to install some crappy tool with an impossible user interface (and what do all those symbols mean anyway?!).</p>
+
+<p>If you’re in this situation, I’d encourage you to take a look at <a href="http://www.uml.org/">UML (Unified Modeling Language)</a>.  It’s recently become a useful tool in my belt, with a combination of the following enablers:</p>
+
+<ul>
+  <li><a href="plantuml-service.herokuapp.com" target="_blank">Plant UML</a> - a free REST API that will generate pretty images from a UML document</li>
+  <li><a href="https://www.getpostman.com/" target="_blank">Postman</a> - an indispensable ecosystem for invoking and testing http APIs</li>
+  <li><a href="https://www.getpaint.net/" target="_blank">Paint.Net</a> - a free Windows app that’s light years better than MSFT Paint</li>
+</ul>
+
+<p>With these 3 in combination, I can quickly produce UML diagrams that describe in a single picture what laborious conversations (voice and text) cannot:</p>
+
+<p><img src="/images/uml-in-postman/picture-worth-thousand-words.png" alt="A Picture is Worth A Thousand Words" title="A Picture is Worth a Thousand Words" /></p>
+
+<h3>UML</h3>
+<p>As with any new language, UML may look a little confusing at first.  Don’t be dismayed, it’s very simple, especially for “quick and dirty” use cases (which is typically how I use it).  In general, you’ll be adding the following:</p>
+
+<h4>Start tag:</h4>
+<pre><code class="language-UML">@start uml
+</code></pre>
+
+<h4>Define your groups and participants:</h4>
+<pre><code class="language-UML">box "Picture" #LightGreen
+	participant OnePicture
+end box
+
+box "Word" #LightBlue
+	participant ThousandWords
+end box
+</code></pre>
+
+<h4>Define interactions between participants:</h4>
+<pre><code class="language-UML">OnePicture -&gt; ThousandWords : "Are we equal?"
+ThousandWords -&gt; OnePicture : "Yes."
+</code></pre>
+
+<h4>And don't forget your end uml tag:</h4>
+<pre><code class="language-UML">@enduml
+</code></pre>
+
+<p>This simple example above produces the “Picture is Worth a Thousand Words” diagram above!</p>
+
+<h3>Plant UML</h3>
+<p><a href="plantuml-service.herokuapp.com" target="_blank">Plant UML</a> is a handy service that will generate SVG images from UML diagrams.  Additionally, they have fantastic documentation that provides both high-level overviews of UML features, as well as details when you’re ready to get into the nitty gritty.  This is a valuable resource for scaling the UML learning curve.  Here’s the URL we will use to generate the diagrams:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST http://plantuml-service.herokuapp.com/svg
+</code></pre></div></div>
+
+<h3>Postman</h3>
+<p><a href="https://www.getpostman.com/" target="_blank">Postman</a> should require no introduction if you’ve developed web-based APIs (REST, SOAP, etc).  If you <em>haven’t</em> used it, I highly recommend checking it out - it is an irreplaceable part of my development toolbox.  In addition to the downloadable tool, their subscription service adds team sharing, documentation, testing components that we at <a href="https://www.earthclassmail.com/" target="_blank">EarthClassMail</a> use extensively.</p>
+
+<p>In order to generate UML, we need to do two things:</p>
+
+<ol>
+  <li>Fill the POST URL (http://plantuml-service.herokuapp.com/svg) in the Postman input</li>
+  <li>Paste our UML in the body:</li>
+</ol>
+
+<p><img src="/images/uml-in-postman/postman-example.png" alt="Postman UML Example" title="Postman Example" /></p>
+
+<p>The UML above results in the following easy-to-read diagram:</p>
+
+<p><img src="/images/uml-in-postman/example-diagram.png" alt="Big UML Example" title="Simple Example of UML in Action" /></p>
+
+<h3>Getting the Output</h3>
+<p>The last step involves getting your UML diagram out of Postman and into an image file, and I’ll admit, it’s a little hoaky.  There are a couple different ways of accomplishing this.  Both involve the use of the wonderful <a href="https://www.getpaint.net/" target="_blank">Paint.Net</a> for actually saving the output.</p>
+
+<h4>Poor Man's</h4>
+<p>If your diagram is small enough (ie, fits entirely in the Postman output window), then a simple approach is to take a screenshot (Ctrl-Alt-PrtScn), paste into Paint.Net, crop accordingly, and save.  Easy Peasy.</p>
+
+<h4>More Involved</h4>
+<p>If your UML diagram exceeds the output pane dimensions within Postman, fear not, the following (slighly convoluted) steps will allow you to save the full output.</p>
+<ol>
+  <li>In Postman, there is a down arrow on the “Send” button.  Click it, and select “Send and Download”.  This will cause Postman to save the results in an SVG file (that’s the format PlantUML returns).</li>
+  <li>Now for the <em>weird</em> part - converting the SVG to something Paint.Net will recognize (in this case, a PNG file).  I use the handy <a href="https://svgtopng.com/" target="_blank">SVGtoPNG</a> website to accomplish this.  There may be better ways - this works for me :)</li>
+  <li>Once you have your PNG, you can open in Paint.Net, crop/trim/highlight/annotate, and away you go!</li>
+</ol>
+
+<h3>UML-ing the Night Away</h3>
+<p>Hopefully this short tutorial has inspired you with the confidence to embark upon a fantastic UML voyage.  No longer will you be held captive by the shortcomings of human language!  Let the machines lead you to technical communication nirvana!</p>
+
+  </div>
+
+  <div class="date">
+    Written on September  4, 2018
+  </div>
+
+  
+<div class="comments">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+
+	    var disqus_shortname = 'martymavis';
+
+	    (function() {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+<a href="mailto:marty.mavis@gmail.com"><i class="svg-icon email"></i></a>
+<a href="https://www.facebook.com/MartyIce"><i class="svg-icon facebook"></i></a>
+
+<a href="https://github.com/MartyIce"><i class="svg-icon github"></i></a>
+
+<a href="https://www.linkedin.com/in/martymavis"><i class="svg-icon linkedin"></i></a>
+
+
+<a href="https://www.twitter.com/MartyIce"><i class="svg-icon twitter"></i></a>
+<a href="http://stackoverflow.com/users/18453/marty"><i class="svg-icon stackoverflow"></i></a>
+<a href="https://youtube.com/user/CurtisMavis"><i class="svg-icon youtube"></i></a>
+
+        </footer>
+      </div>
+    </div>
+
+    
+  </body>
+</html>

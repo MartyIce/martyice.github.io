@@ -1,0 +1,69 @@
+* gorgeous website, fast and responsive
+  * "thanks to the amazing design work of  who created our new logo and website, which has moved from  to ."
+* "Cybernetically enhanced web apps"
+* "Svelte is a component framework — like React or Vue"
+* "Traditional frameworks allow you to write declarative state-driven code,"
+  * Q - what is "declarative state-driven code"?
+  * Q - "imperative code" - what is that? 
+* precompiled, all the JS is ready to go before it hits the browser.
+  * contrasted with React/Vue, which do their work in the browser (interpeted perhaps?)
+  * Because , we're not bound to the peculiarities of JavaScript: we can design a component authoring experience, rather than having to fit it around the semantics of the language. Paradoxically, this results in more idiomatic code — for example using variables naturally rather than via proxies or hooks — while delivering significantly more performant apps.
+* Svelte just "uses the language".  Because it's a compiler, it can add instrumentation/add'l logic behind the scenes that does "framework-y" things in response to raw, simple JS operations
+* Svelte has many aspects — outstanding performance, small bundles, accessibility, built-in style encapsulation, declarative transitions, ease of use, the fact that it's a compiler, etc
+* Q - deep linking?  Does their site support it?
+* "Write Less Code" - "that the more code you have to write the buggier your apps will be."
+  * Readability is important - goal isn't to squeeze everything into one line of code - rather, "we should favour languages and patterns that allow us to naturally write less code."
+  * Comparison of a simple component between Svelte and the other guys:  https://svelte.dev/blog/write-less-code#Yes_I_m_talking_about_Svelte
+  * Reasons
+    * Svelte can have any number of top level elements - React and Vue are limited to one.  This means you don't need to explode component hierarchy unnecessarily
+    * Bindings - React forces you to write two bits of code to bind a value - the declarative binding, and the change handler.  More code, more surface area for bugs.
+    * State - Svelte uses simple JS operators.  React uses the "useState" hook, Vue uses the complicated (and closed) "data' function
+* No Virtual DOM (https://svelte.dev/blog/virtual-dom-is-pure-overhead)
+  * React builds a virtual "shadow" of the actual DOM.  It performs diffs there, and applies changes to actual DOM
+    * Q - (is virtual DOM diff faster than performing them against actual DOM?)
+  * V DOM changes are IN ADDITION TO the actual (required) physical DOM changes.  You can beat them with "close to the metal" DOM operations, but it's cmopleted, and usually less efficient (and not cross browser/platform, etc)
+  * "The original promise of React was that you could re-render your entire app on every single state change without worrying about performance"
+  * A good deal of overhead in diffing comes from having to check EVERY PROPERTY, when you "know" it's only going to ever be something like a DOM node's value/text.  Svelte is able to "know" this because it's a compiler, rather than interpreted at runtime
+  * React's render lends itself to writing inefficient code (eg, rebuilding an "li" list from an array in each render), and not even knowing it.  Isolated, not a huge deal.  Taken in aggregate, "death by 1000 cuts"
+  * "Virtual DOM is valuable because it allows you to build apps without thinking about state transitions, with performance that is generally good enough"
+* Typescript support (https://svelte.dev/blog/svelte-and-typescript)
+* Sapper?
+* Walkthrough of doc/tutorial?
+* Watch: https://youtu.be/AdNJ3fydeao
+  * because it's a compiler, if you're not using something, it doesn't contribute to your JS
+  * transitions in Svelte are all converted to CSS, which runs everything off the main thread.
+  * Svelte is fast, runs benchmarks faster than React Asyncronous
+  * Svelte compiled code is available in their sandbox.
+  * introduces new :$
+  * Sapper - Next/Gatsby-style framework
+  * Svelte GL - like three.js, but svelter
+* Read: https://svelte.dev/blog/frameworks-without-the-framework
+  * Large app sizes are bad for download time, but also render the browser unresponsive
+  * Polymer was meant to help, but hasn't caught traction
+  * What do frameworks solve?
+    * common view
+      * make it easier to manage the complexity of your code: the framework abstracts away all the fussy implementation details with techniques like virtual DOM diffing
+      * IN reality: At best, frameworks move the complexity around, away from code that you had to write and into code you didn't
+    * in reailty: Frameworks are primarily a tool for structuring your thoughts, not your code
+  * Svelte is vanilla javascript, with no hefty runtime getting in the way
+  * Interoperability - because Svelte doesn't use frameworks, any JS components/libraries should work without an "adaptation"
+  * Some frameworks use code splitting, which helps, but still requires the framework to be loaded
+  * Prevents feature bloat - if someone's not using a feature, it's not included in the final package
+* Read: https://svelte.dev/blog/whats-the-deal-with-sveltekit SAPPER
+  * Sapper is an app framework (or 'metaframework') built on top of Svelte (which is a component framework)
+  * Sapper uses filesystem-based routing (as popularised by  and adopted by many other frameworks, albeit with some enhancements) — your project's file structure mirrors the structure of the app itself.
+  * Having a recommended file structure reduces mental burden of creating an app with Svelte
+  * rather than bundling apps with webpack or rollup, modern browsers support @import, allowing JIT downloads
+  * uses snowpack
+  * HMR - hot module reloading
+  * SSR - server side rendering
+  * Sapper effectively has two modes — sapper build, which creates a standalone app that has to run on a Node server, and sapper export which bakes your app out as a collection of static files suitable for hosting on services like GitHub Pages.
+
+* Read: https://reactjs.org/docs/hooks-intro.html
+* Read: https://sapper.svelte.dev/ (Next.js-style app framework)
+* Read: https://svelte-native.technology/ (svelte native for iOS/Android)
+* Read: https://svelte.dev/tutorial/reactive-declarations
+* Watch: https://sveltesummit.com/
+* Read: https://github.com/sveltejs/svelte/issues/4518
+* Watch: Dan Abramov - JS Conf UI Iceland "incredible talk that changed people's understanding"
+* Listen - https://www.svelteradio.com/

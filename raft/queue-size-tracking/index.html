@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Querying Azure Queues - My, How You've Grown! – The World o' Curtis Mavis – Code, Music, Kids, Sleep</title>
+
+        <meta charset="utf-8" />
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+
+    
+    <meta name="description" content="The Problem
+The magic of the cloud - infrastructure on demand!  Spin up the queues, and stack up the messages!  Queues, something we used to have to manage ourselves, now forever delegated to the experts.  But we still need to track them, and know whether things are working correctly.  How to peel back that layer?
+" />
+    <meta property="og:description" content="The Problem
+The magic of the cloud - infrastructure on demand!  Spin up the queues, and stack up the messages!  Queues, something we used to have to manage ourselves, now forever delegated to the experts.  But we still need to track them, and know whether things are working correctly.  How to peel back that layer?
+" />
+    
+    <meta name="author" content="The World o' Curtis Mavis" />
+
+    
+    <meta property="og:title" content="Querying Azure Queues - My, How You've Grown!" />
+    <meta property="twitter:title" content="Querying Azure Queues - My, How You've Grown!" />
+    
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-75390437-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="alternate" type="application/rss+xml" title="The World o' Curtis Mavis - Code, Music, Kids, Sleep" href="/feed.xml" />
+    <link rel="shortcut icon" type="image/png" href="/images/favicon.png">
+    <!-- Created with Jekyll Now - http://github.com/barryclark/jekyll-now -->
+  </head>
+
+  <body>
+    <div class="wrapper-masthead">
+      <div class="container">
+        <header class="masthead clearfix">
+          <a href="/jongriffin" class="site-avatar"><img src="/images/Curtis.png" /></a>
+
+          <div class="site-info">
+            <h1 class="site-name"><a href="/">The World o' Curtis Mavis</a></h1>
+            <p class="site-description">Code, Music, Kids, Sleep</p>
+          </div>
+
+          <nav>
+            <a href="/">Blog</a>
+            <a href="/about">About</a>
+          </nav>
+        </header>
+      </div>
+    </div>
+
+    <div id="main" role="main" class="container">
+      <article class="post">
+
+	<div class="social-button">
+		<a href="https://twitter.com/share" class="twitter-share-button" data-text="Querying Azure Queues - My, How You've Grown!" data-via="MartyIce" data-size="large">Tweet</a>
+		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  </div>
+  <br />
+  <div style="margin-top: 10px"/>
+	<div class="social-button" >
+    <script src="https://platform.linkedin.com/in.js" type="text/javascript">lang: en_US</script>
+    <script type="IN/Share" data-url="http://localhost:4000/queue-size-tracking/"></script>
+  </div>
+
+  <h1>Querying Azure Queues - My, How You've Grown!</h1>
+
+  <div class="entry">
+    <h3>The Problem</h3>
+<p>The magic of the cloud - infrastructure on demand!  Spin up the queues, and stack up the messages!  Queues, something we used to have to manage ourselves, now forever delegated to the experts.  But we still need to track them, and know whether things are working correctly.  How to peel back that layer?</p>
+
+<p><a href="https://azure.microsoft.com/en-us/services/storage/queues/">Azure Queues</a> are a cornerstone of our cloud-migration strategy at <a href="https://www.earthclassmail.com/" target="_blank">EarthClassMail</a>.  We use them in a couple ways: to queue work within a service, and as an async, resilient communication mechanism between services.  However, there isn’t an built-in way (that we were able to find) to simply monitor queue size over a time period.  This is important information for monitoring the health of our system, and detecting bottlenecks and errors.</p>
+
+<h3>When in Doubt, Add More Cloud</h3>
+
+<p>Thankfully, there are other pieces of Azure we can use to roll a custom monitoring solution.  Using some simple Azure code and configuration, we can easily create a graph showing our queue sizes over time:</p>
+
+<p>
+<img src="/images/queue-size-tracking/queue-chart-image.png" alt="Queue Timeline" />
+<em>Queue Sizes Timeline</em>
+</p>
+
+<p>This implementation consists of a few components:</p>
+
+<ul>
+  <li><strong>Azure Function</strong> - periodically polls the queue sizes, and logs results to App Insights</li>
+  <li><strong>App Insights</strong> - records the results, and turns them into a pretty chart</li>
+  <li><strong>Azure Dashboard</strong> - centralized location for displaying the chart</li>
+</ul>
+
+<p>A bonus gained implementing the above was it gave us the excuse and opportunity to explore and learn new Azure things!  Let’s roll up our sleeves…</p>
+
+<h3>Azure Function - Query the Queues</h3>
+
+<p><a href="https://azure.microsoft.com/en-us/blog/introducing-azure-functions/">Azure Functions</a> allow us to quickly spin up <a href="https://martinfowler.com/articles/microservices.html">micro services</a> that perform smaller, specialized tasks, in a compartmentalized fashion.  They are effectively a small “slice” of a full web app, with Azure handling most of the infrastructure and setup concerns under the covers.</p>
+
+<p>For this project, we created a function to periodically retrieve the “approximate” message count for a list of queues.  It looks like this:</p>
+
+<div class="language-c# highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Reference external assembly</span>
+<span class="c1">// https://docs.microsoft.com/en-us/azure/azure-functions/functions-reference-csharp#referencing-external-assemblies</span>
+<span class="err">#</span><span class="n">r</span> <span class="s">"Microsoft.WindowsAzure.Storage"</span>
+
+<span class="c1">// Standard .Net "usings"</span>
+<span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Microsoft.WindowsAzure.Storage</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Microsoft.ApplicationInsights</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Microsoft.ApplicationInsights.Extensibility</span><span class="p">;</span>
+
+<span class="c1">// TelemetryClient for sending info to AI.</span>
+<span class="c1">// Substitute your "InstrumentationKey" here:</span>
+<span class="k">private</span> <span class="k">static</span> <span class="n">TelemetryClient</span> <span class="n">_client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">TelemetryClient</span><span class="p">()</span> <span class="p">{</span> <span class="n">InstrumentationKey</span> <span class="p">=</span> <span class="s">"&lt;InstrumentationKey&gt;"</span> <span class="p">};</span>
+
+<span class="c1">// This function will run on a periodic basis (timer config displayed in screenshot below)</span>
+<span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">Run</span><span class="p">(</span><span class="n">TimerInfo</span> <span class="n">myTimer</span><span class="p">,</span> <span class="n">TraceWriter</span> <span class="n">log</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// This will log a Trace to the App Insights instance ASSOCIATED WITH THIS FUNCTION (not necessarily</span>
+    <span class="c1">//  the same AI instance referenced by our "_client" variable!)</span>
+    <span class="n">log</span><span class="p">.</span><span class="nf">Info</span><span class="p">(</span><span class="s">$"MonitorScanQueues function executed at: </span><span class="p">{</span><span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span><span class="p">}</span><span class="s">"</span><span class="p">);</span>
+
+    <span class="c1">// connect to Azure Storage</span>
+    <span class="kt">var</span> <span class="n">connectionString</span> <span class="p">=</span> <span class="s">"&lt;AzureStorageConnectionString&gt;"</span><span class="p">;</span>
+    <span class="kt">var</span> <span class="n">account</span> <span class="p">=</span> <span class="n">CloudStorageAccount</span><span class="p">.</span><span class="nf">Parse</span><span class="p">(</span><span class="n">connectionString</span><span class="p">);</span>
+    <span class="kt">var</span> <span class="n">queueClient</span> <span class="p">=</span> <span class="n">account</span><span class="p">.</span><span class="nf">CreateCloudQueueClient</span><span class="p">();</span>
+
+    <span class="c1">// List of Queues we want to poll</span>
+    <span class="kt">var</span> <span class="n">myQueues</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">string</span><span class="p">[]</span> <span class="p">{</span> 
+            <span class="s">"my-queue-1"</span><span class="p">,</span>
+            <span class="s">"my-queue-2"</span><span class="p">,</span>
+            <span class="s">"my-queue-another"</span><span class="p">,</span>
+            <span class="s">"my-queue-error"</span><span class="p">,</span>
+            <span class="s">"my-queue-random"</span>
+         <span class="p">};</span>
+
+    <span class="c1">// Loop through queues</span>
+    <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">queueName</span> <span class="k">in</span> <span class="n">myQueues</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// get a reference to the queue and retrieve the queue length</span>
+        <span class="kt">var</span> <span class="n">queue</span> <span class="p">=</span> <span class="n">queueClient</span><span class="p">.</span><span class="nf">GetQueueReference</span><span class="p">(</span><span class="n">queueName</span><span class="p">);</span>
+        <span class="n">queue</span><span class="p">.</span><span class="nf">FetchAttributes</span><span class="p">();</span>
+        <span class="kt">var</span> <span class="n">length</span> <span class="p">=</span> <span class="n">queue</span><span class="p">.</span><span class="n">ApproximateMessageCount</span><span class="p">;</span>
+
+        <span class="c1">// Track the count as a metric within App Insights (the App Insights instance specified by &lt;InstrumentationKey&gt; above)</span>
+        <span class="n">_client</span><span class="p">.</span><span class="nf">TrackMetric</span><span class="p">(</span><span class="s">$"Queue length - </span><span class="p">{</span><span class="n">queueName</span><span class="p">}</span><span class="s">"</span><span class="p">,</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">length</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The timer that triggers the function is configured in the “Integrate” section of the Azure Function administration:</p>
+
+<p>
+<img src="/images/queue-size-tracking/timer-based-function.png" alt="Timer Based Function" />
+<em>Triggered by Timer</em>
+</p>
+
+<p>The “Schedule” parameter is a standard <a href="https://www.freeformatter.com/cron-expression-generator-quartz.html">chron expression</a> used to define a time interval.  In this screenshot, we’re executing our function once a minute.</p>
+
+<h3>App Insights - Make it Pretty</h3>
+
+<p>The code sample above logs App Insights <a href="https://docs.microsoft.com/en-us/azure/application-insights/app-insights-metrics-explorer">Metrics</a> that capture the size of our queues every minute.</p>
+
+<p>When viewed within App Insights Analytics, these results will look something like this:</p>
+
+<p>
+<img src="/images/queue-size-tracking/queue-data.png" alt="Raw Queue Data" />
+<em>Lots and Lots of Meaningless Data</em>
+</p>
+
+<p>That view is pretty boring, but becomes much cooler with a simple “render” statement at the end of our query:</p>
+
+<p>
+<img src="/images/queue-size-tracking/queue-chart.png" alt="Queue Data Visualized" />
+<em>Snappy, Informative Visual!</em>
+</p>
+
+<p>In addition to being easy on the eyes, this chart provides visual cues that immediately leap off the page, allowing us to view trends.  They are also more consumable by “non-techies”.  Big win!</p>
+
+<p>The final step here is to put this chart somewhere readily accessible, so we only need to write the query once….</p>
+
+<h3>Azure Dashboard - Share and Share Alike</h3>
+
+<p>This step is actually very simple - by clicking the “pin” icon in the upper right of the chart:</p>
+
+<p>
+<img src="/images/queue-size-tracking/pin-the-chart.png" alt="Pin the Chart" /><br />
+<em>Pin the Chart on the Dashboard</em>
+</p>
+
+<p>You can select an <a href="https://docs.microsoft.com/en-us/azure/azure-portal/azure-portal-dashboards">Azure Dashboard</a> on which to pin the chart.  Dashboards are displayed when logging into Azure Portal, and offer high-level views of interesting information in your system.  You can have multiple Dashboards (eg, “Operations”, “Development”, “Sales”, etc).   In addition to other built-in Azure “information widgets”, App Insight results (raw data or visualizations) are part of what you can put there.  Very slick!</p>
+
+<p>Once our chart is pinned, logging into Azure Portal displays it, front and center:</p>
+
+<p>
+<img src="/images/queue-size-tracking/dashboard.png" alt="All Charts, All the Time" />
+<em>All Charts, All the Time</em>
+</p>
+
+<p>The 4 icons on the right of each chart are:</p>
+
+<p>
+<img src="/images/queue-size-tracking/four-icons.png" alt="The Four Icons" /><br />
+</p>
+
+<ul>
+  <li>Refresh - pull new information from AI, and refresh the display</li>
+  <li>Edit Title - provide more meaningful title for the chart</li>
+  <li>Edit Query - edit the query inline to tweak your results</li>
+  <li>Open Chart in Analytics - open the analytics UI to edit/refine your query and chart</li>
+</ul>
+
+<p>Big, easy power!</p>
+
+<h3>Up Next - Logging from "Legacy"</h3>
+
+<p>Thanks for reading, and stay tuned, as the next post will describe how you can get existing .Net code (not running within Azure) to write all these powerful App Insights traces yourself, and start to harness the power!</p>
+
+  </div>
+
+  <div class="date">
+    Written on July 27, 2018
+  </div>
+
+  
+<div class="comments">
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+
+	    var disqus_shortname = 'martymavis';
+
+	    (function() {
+	        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	    })();
+
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+</article>
+
+    </div>
+
+    <div class="wrapper-footer">
+      <div class="container">
+        <footer class="footer">
+          
+<a href="mailto:marty.mavis@gmail.com"><i class="svg-icon email"></i></a>
+<a href="https://www.facebook.com/MartyIce"><i class="svg-icon facebook"></i></a>
+
+<a href="https://github.com/MartyIce"><i class="svg-icon github"></i></a>
+
+<a href="https://www.linkedin.com/in/martymavis"><i class="svg-icon linkedin"></i></a>
+
+
+<a href="https://www.twitter.com/MartyIce"><i class="svg-icon twitter"></i></a>
+<a href="http://stackoverflow.com/users/18453/marty"><i class="svg-icon stackoverflow"></i></a>
+<a href="https://youtube.com/user/CurtisMavis"><i class="svg-icon youtube"></i></a>
+
+        </footer>
+      </div>
+    </div>
+
+    
+  </body>
+</html>

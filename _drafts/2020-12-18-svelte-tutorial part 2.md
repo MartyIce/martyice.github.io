@@ -1,11 +1,11 @@
 ---
 layout: post
 title: Svelte - Tutorial Walkthrough, Part 2
-tweetText: Second post describing a walkthrough of Svelte's delightful online tutorial
+tweetText: Svelte's delightful online tutorial - Events and Logic
 ---
 
 <h3>Svelte Tutorial, Part 2</h3>
-This is the 2nd post in a series walking through [Svelte's][svelte tutorial] online tutorial.  In the first post we covered Introduction, [Reactivity][svelte reactivity], and [Props][svelte props].  This post will continue where we left off, exploring [Logic][svelte logic] and [Events][svelte events].  With these in your toolbelt, you'll be further down the Svelte path, about halfway through the entire tutorial.
+This is the 2nd post in a series walking through [Svelte's][svelte tutorial] online tutorial.  In the [first post]({% post_url 2020-12-11-svelte-tutorial %}) we covered Introduction, [Reactivity][svelte reactivity], and [Props][svelte props].  This post will continue where we left off, exploring [Logic][svelte logic] and [Events][svelte events].  With these in your toolbelt, you'll be further down the Svelte path, about halfway through the entire tutorial.
 
 Upon completion of the work here, the mysterious, unsanctioned Svelte ninja would like some words with you!
 

@@ -1,11 +1,11 @@
 ---
 layout: post
 title: Svelte - Tutorial Walkthrough, Part 3
-tweetText: Third post describing a walkthrough of Svelte's delightful online tutorial
+tweetText: Svelte's delightful online tutorial - Bindings
 ---
 
 <h3>Svelte Tutorial, Part 3</h3>
-This is the 3nd post in a series walking through [Svelte's][svelte tutorial] online tutorial.  In the first post we covered Introduction, [Reactivity][svelte reactivity], and [Props][svelte props].  The second post explored [Logic][svelte logic] and [Events][svelte events].  Today we will explore [Bindings][svelte bindings], which are used to "tie" variable and state values with inputs.
+This is the 3nd post in a series walking through [Svelte's][svelte tutorial] online tutorial.  In the [first post]({% post_url 2020-12-11-svelte-tutorial %}) we covered Introduction, [Reactivity][svelte reactivity], and [Props][svelte props].  The [second post]({% post_url 2020-12-18-svelte-tutorial part 2 %}) explored [Logic][svelte logic] and [Events][svelte events].  Today we will explore [Bindings][svelte bindings], which are used to "tie" variable and state values with inputs.
 
 <h4>Text Inputs</h4>
 The [Text Input][svelte text input] section begins with a general rule of Svelte - "data flow in Svelte is top down — a parent component can set props on a child component, and a component can set attributes on an element, but not the other way around".  This is super important to solidify in your mind.  In my initial dabbling with Svelte, this tripped me up - a child component would update a variable, but I wouldn't see that updated in the "parent scope".  Always remember, "data flows downhill"
@@ -170,6 +170,7 @@ And that's it for Bindings!  With these in your toolbelt, you can begin to add s
 [svelte logic]: https://svelte.dev/tutorial/if-blocks
 [svelte events]: https://svelte.dev/tutorial/dom-events
 [svelte bind]: https://svelte.dev/docs#bind_component_property
+[svelte bindings]: https://svelte.dev/tutorial/text-inputs
 [svelte numeric inputs]: https://svelte.dev/tutorial/numeric-inputs
 [svelte checkboxes]: https://svelte.dev/tutorial/checkbox-inputs
 [svelte group inputs]: https://svelte.dev/tutorial/group-inputs
