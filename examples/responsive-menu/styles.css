@@ -1,0 +1,79 @@
+/* Remove some default styling*/
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+  }
+  .top_nav {
+    height: 50px; /* Give navbar fixed height */
+    background-color: black;
+  }
+  #nav_links,
+  #search_bar {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.5); /* Transparent background */
+    padding: 10px;
+  }  
+
+  #nav_links li a {
+    /* Remove underlines from links */
+    text-decoration: none;
+    color: white;
+    font-size: 26px;
+  }
+  #hamburger {
+    width: 30px;
+    height: 30px;
+    float: right;
+    margin: 10px;
+    font-size: 20px;
+    border-radius: 4px;
+  }
+  #search_bar input,
+  #search_bar button {
+    padding: 5px;
+    font-size: 20px;
+    border-radius: 4px;
+  }  
+
+/* Tablet view starts here */
+@media screen and (min-width: 780px) {
+    .top_nav {
+        display: grid;
+        grid-template-columns: 1fr 1fr 2fr;
+        color: blue;
+      }
+      #nav_links {
+        position: absolute;
+        top: 50px;
+        width: 100%;
+      }
+      #search_bar {
+        display: block;
+        background: none;
+      }
+}
+
+@media screen and (min-width: 1200px) {
+    .top_nav {
+      display: grid;
+      grid-template-columns: 1fr 4fr 2fr;
+    }
+    #hamburger {
+      display: none;
+    }
+    #nav_links {
+      display: block;
+      position: relative;
+      top: 0;
+      width: 80%;
+      height: 30px;
+    }
+    #nav_links li {
+      display: inline;
+      margin-right: 20px;
+    }
+    #nav_links li a:hover {
+      border-bottom: 1px solid white;
+    }
+  }

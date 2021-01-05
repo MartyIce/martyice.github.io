@@ -1,2 +1,0 @@
-I"�<p>We’ve had a recent need at <a href="http://www.earthclassmail.com">Earth Class Mail</a> to expose a <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST</a> API for external partners.  They want to upsell our services, and we’d like a crack at their wonderful, shiny customers.  While we’ve already got a decent library of well-defined, publicly-exposed web services, there were a few shortcomings we wanted to address:</p>
-:ET

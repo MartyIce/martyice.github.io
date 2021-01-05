@@ -1,4 +1,0 @@
-I"<h2>The Problem</h2>
-<p>Recently at <a href="https://www.earthclassmail.com/" target="_blank">EarthClassMail</a> we wanted to migrate our “PDF generator” system to Azure, so I began researching our options.  There are plenty of solutions out there that create PDFs from images, but we also needed OCR results to make the PDF “searchable”.  I figured we’d be able to locate a .Net library that would do the trick.  Or possibly an affordable service that offered a cloud-based API to generate PDFs…</p>
-
-:ET
