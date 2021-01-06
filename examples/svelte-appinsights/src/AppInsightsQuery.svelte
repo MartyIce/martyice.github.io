@@ -2,7 +2,7 @@
     import { query } from './stores.js';
 </script>
 
-<div>
+<div class="row">
 Query:
 <textarea bind:value={$query} />
 </div>

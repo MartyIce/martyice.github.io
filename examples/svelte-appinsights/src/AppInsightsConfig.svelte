@@ -1,10 +1,6 @@
 <script>
-    import { secretKey, appId } from './stores.js';
+    import { secretKey, appId } from "./stores.js";
 </script>
 
-<div>
-    ApplicationId: <input value={$appId} />
-</div>
-<div>
-    ApplicationSecretKey: <input value={$secretKey} />
-</div>
+<div class="row">ApplicationId: <input value={$appId} /></div>
+<div class="row">ApplicationSecretKey: <input value={$secretKey} /></div>
