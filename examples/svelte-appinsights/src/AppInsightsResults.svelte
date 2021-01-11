@@ -1,14 +1,13 @@
 <script>
-    import { query, secretKey, appId } from "./stores.js";
+    import { query, secretKey, appId, error } from "./stores.js";
     import AppInsightsRepository from "./AppInsightsRepository.js";
 
     let aiRepository = new AppInsightsRepository();
-    let error = '';
 
     async function executeQuery() {
         // event handler code goes here
         // console.log($query);
-        error = '';
+        $error = '';
         let promise = await aiRepository.Execute($appId, $secretKey, $query);
         var results = await promise.text();
         buildChart(JSON.parse(results));
@@ -58,7 +57,7 @@
         });
         }
         catch {
-            error = 'There was a problem';
+            $error = 'There was a problem';
         }
     }
 </script>
@@ -68,9 +67,3 @@
     Results:
     <canvas id="aiResults" width="200" height="200" />
 </div>
-
-{#if error}
-<div class="alert alert-danger" role="alert">
-    {error}
-</div>
-{/if}

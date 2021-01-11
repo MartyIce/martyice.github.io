@@ -3,6 +3,7 @@
 	import AppInsightsConfig from './AppInsightsConfig.svelte';
 	import AppInsightsQuery from './AppInsightsQuery.svelte';
 	import AppInsightsResults from './AppInsightsResults.svelte';
+	import Error from './Error.svelte';
 </script>
 
 <main>
@@ -32,6 +33,7 @@
 	  </nav>
 
  
+	<Error />
 	{#if showSettings}
 	<AppInsightsConfig />
 	{:else}

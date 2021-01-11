@@ -1,0 +1,9 @@
+<script>
+    import { error } from './stores.js';
+</script>
+
+{#if $error}
+<div class="alert alert-danger" role="alert">
+    {$error}
+</div>
+{/if}
