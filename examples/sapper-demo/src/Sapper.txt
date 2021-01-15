@@ -1,0 +1,20 @@
+Sapper
+
+* https://sapper.svelte.dev/docs
+  * each page of app is it's own Svelte component
+  * src/routes is where pages are added
+  * handles all the complexity required for code splitting, offline support, server rendered views with client hydration
+  * Short for "Svelte App Maker"
+  * inspired by Next.js
+  * you can also add server routes for a rest api
+  * supports typescript
+
+  error on windows 10, this resolved (use cmd):
+  https://github.com/sveltejs/sapper/issues/1334
+
+
+* https://github.com/sveltejs/sapper-template
+  * detailed readme  
+
+  stopped here:
+  https://svelte.dev/repl/f78ddd84a1a540a9a40512df39ef751b?version=3.31.2
