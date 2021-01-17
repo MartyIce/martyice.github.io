@@ -16,5 +16,5 @@ Sapper
 * https://github.com/sveltejs/sapper-template
   * detailed readme  
 
-  stopped here:
-  https://svelte.dev/repl/f78ddd84a1a540a9a40512df39ef751b?version=3.31.2
+read:
+https://development-tools.net/blog/creating-a-static-blog-with-sapper-and-strapi/

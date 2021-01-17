@@ -62,8 +62,16 @@
     }
 </script>
 
-<div class="row"><button on:click={executeQuery}> Execute </button></div>
 <div class="row">
-    Results:
-    <canvas id="aiResults" width="200" height="200" />
+    <div class="col-12">
+        <button on:click={executeQuery} class="float-right"> Execute </button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-3 text-right">
+        Results:
+    </div>
+    <div class="col-9">
+        <canvas id="aiResults" width="200" height="200" />
+    </div>
 </div>
