@@ -90,3 +90,8 @@ exclude:
   - LICENSE
   - README.md
   - CNAME
+  - node_modules
+  - examples
+  - notes
+
+keep_files: [images]
