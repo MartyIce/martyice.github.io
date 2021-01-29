@@ -5,7 +5,7 @@ tweetText: Svelte's delightful online tutorial - Lifecycle and Stores
 ---
 
 <h3>Svelte Tutorial, Part 4</h3>
-This is the 4th post in a series walking through [Svelte's][svelte tutorial] online tutorial.  In the [first post]({% post_url 2020-12-11-svelte-tutorial %}) we covered Introduction, [Reactivity][svelte reactivity], and [Props][svelte props].  The [second post]({% post_url 2020-12-18-svelte-tutorial part 2 %}) explored [Logic][svelte logic] and [Events][svelte events].  The [third post]({% post_url 2020-12-24-svelte-tutorial part 3 %}) dove deeply into Bindings.  Today, we will explore [Lifecycle][svelte lifecycle] and [Stores][svelte stores].
+This is the 4th post in a series walking through [Svelte's][svelte tutorial] online tutorial.  In the [first post]({% post_url 2020-12-11-svelte-tutorial %}) we covered Introduction, [Reactivity][svelte reactivity], and [Props][svelte props].  The [second post]({% post_url 2020-12-18-svelte-tutorial part 2 %}) explored [Logic][svelte logic] and [Events][svelte events].  The [third post]({% post_url 2021-01-26-svelte-tutorial part 3 %}) dove deeply into Bindings.  Today, we will explore [Lifecycle][svelte lifecycle] and [Stores][svelte stores].
 
 <h3>Lifecycle</h3>
 The [Svelte Lifecycle][svelte lifecycle] represents the different stages of building and rendering a Svelte component will undergo.  While Svelte hides this complexity behind the compiler, it is important to learn the details for a few reasons:
