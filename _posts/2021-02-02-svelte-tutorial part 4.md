@@ -7,20 +7,20 @@ tweetText: Svelte's delightful online tutorial - Lifecycle and Stores
 <h3>Svelte Tutorial, Part 4</h3>
 This is the 4th post in a series walking through [Svelte's][svelte tutorial] online tutorial.  In the [first post]({% post_url 2020-12-11-svelte-tutorial %}) we covered Introduction, [Reactivity][svelte reactivity], and [Props][svelte props].  The [second post]({% post_url 2020-12-18-svelte-tutorial part 2 %}) explored [Logic][svelte logic] and [Events][svelte events].  The [third post]({% post_url 2021-01-26-svelte-tutorial part 3 %}) dove deeply into [Bindings][svelte bindings].  
 
-Today, we will explore [Lifecycle][svelte lifecycle] and [Stores][svelte stores].
+Today, we will explore [Lifecycle][svelte lifecycle] and [Stores][svelte stores]!
 
 <h3>Lifecycle</h3>
-The [Svelte Lifecycle][svelte lifecycle] represents the different stages of building and rendering a Svelte component undergoes.  While Svelte hides this complexity behind the compiler, knowing how it works is useful for a few reasons:
+The [Svelte Lifecycle][svelte lifecycle] represents the different stages a Svelte component undergoes as it is rendered in the browser.  While Svelte hides this complexity behind the compiler, knowing how it works is useful for a few reasons:
 
-* Additional functionality is available by using the lifecycle hooks
 * Unexpected behavior may occur if your code is doing certain things (eg, network calls) at the incorrect times in the component lifecycle
+* Lifecycle hooks provide a better understanding of how Svelte builds the DOM.
 
-As you build your Svelte ninjitsu, you must deepen your familiarity with the underlying framework.  Over the long haul, this will increase your developer power.  Lifecycles are a great example where deeper understanding will multiply your abilities.
+As you build your Svelte ninjitsu, you must deepen your familiarity with the underlying framework.  Over the long haul, this will increase your coding power.  Lifecycles are a great example where deeper understanding will multiply your abilities.
 
 <h4>onMount</h4>
-The first function covered is [onMount][svelte lifecycle], which executes after the component is first rendered to the DOM.  According to the tutorial, this is the most important Lifecycle function.  
+The first function covered is [onMount][svelte lifecycle], which executes after the component is first rendered to the DOM.  *According to the tutorial, this is the most important Lifecycle function*. 
 
-One use case for onMount is when executing networking calls using Javascript's [fetch][fetch api].  While you *could* make this call directly in the 'script' tag of your component, this won't work correctly if you're using [server side rendering (SSR)][ssr].
+One use case for onMount is when executing networking calls using Javascript's [fetch][fetch api].  While you *could* make this call directly in the 'script' tag of your component, that won't work correctly if you're using [server side rendering (SSR)][ssr].
 
 Here's a quick example of using onMount:
 
@@ -43,15 +43,13 @@ Here's a quick example of using onMount:
 
 ```
 
-Note the core Svelte framework doesn't actually provide SSR.  SSR is the responsibility of auxiliary frameworks such as [Sapper][svelte sapper] and [Svelte Kit][svelte kit].
-
 <h4>onDestroy</h4>
 Svelte's [onDestroy][svelte ondestroy] hook performs cleanup, preventing memory leaks when the runtime destroys a component.  The example provided in Svelte's tutorial demonstrates using onDestroy to clean up after a [setInterval][setinterval] function.  
 
-This is an important thing to consider with JS UI development, especially as your app grows larger.  Memory leaks can kill a site's performance, and it's not always apparent when they exist.  Code still works with memory leaks, and usually doesn't suffer until under heavier load.  That lulls people into not thinking about some of the deeper and more complicated problems that can occur.  Here's a [good article][js memory leaks] going deeper on the topic.
+This is an important thing to consider with JS UI development, especially as your app grows larger.  Memory leaks can kill a site's performance, and it's not always apparent when they exist.  The app still *works* with memory leaks, and usually doesn't suffer until under heavier load.  That lulls people into not thinking about some of the deeper and more complicated problems that can occur.  Here's a [good article][js memory leaks] going deeper on that topic.
 
 <h4>beforeUpdate and afterUpdate</h4>
-Svelte provides [beforeUpdate and afterUpdate][svelte update] hooks that will trigger before and after the DOM is synchronized with your data.  In the words of the Svelte tutorial, "they're useful for doing things imperatively that are difficult to achieve in a purely state-driven way, like updating the scroll position of an element."  To my ears, that means "lots of things can go sideways with HTML and DOM positioning/rendering - before/after update gives you hooks to hack together fixes".  
+Svelte provides [beforeUpdate and afterUpdate][svelte update] hooks that will trigger before and after the DOM is synchronized with your data.  In the words of the Svelte tutorial, "they're useful for doing things imperatively that are difficult to achieve in a purely state-driven way, like updating the scroll position of an element."  To my ears, that means "lots of things can go sideways with HTML and DOM positioning/rendering - before/after update gives you hooks to cobble together fixes".  
 
 In a way, these might be considered "backdoors".  While slightly hacky, these are sometimes necessary.  It's really hard to get everything in a complex framework to work correctly all the time, especially across different browsers and versions.  Sometimes, you need a backdoor.
 
@@ -72,10 +70,10 @@ The tutorial has a good example you should look into, but in a nutshell, it look
 ```
 
 <h3>Stores</h3>
-Ahhh....Stores.  For me, this was where Svelte made the leap from "interesting widget framework" to "something I can use to build an actual application".  Stores are what allow you to share data across unrelated components, as well as with non-Svelte Javascript modules.
+Ahhh....Stores.  For me, this was where Svelte made the leap from "interesting widget framework" to "something I can use to build an actual application".  Stores  allow you to share data across unrelated components, as well as with non-Svelte Javascript modules.  To my naive understanding, Stores are to Svelte what [Redux][redux] is to [React][react].
 
 <h4>Writeable Stores</h4>
-At their simplest, Stores do the following:
+In their simplest form, Stores achieve the following:
 
 * Store a value
 * Allow value to be updated (via "update")
@@ -119,7 +117,7 @@ Yell Louder
 <div>{name_value}</div>
 ```
 
-One issue I encountered at first was the inclination to bind to the writable store itself.  There's an important distinction here - the store is the container for the value, but is not the value itself:
+One issue I encountered at first was the inclination to bind to the writable store itself.  There's an important distinction here - the store is the *container* for the value, but is not the value *itself*:
 
 <p><img src="/images/svelte/store_binding.png" alt="You can't bind directly to Writeable Store" title="You can't bind directly to Writeable Store" /></p>
 
@@ -184,10 +182,10 @@ This can be addressed by using the [onDestroy][svelte ondestroy] lifecycle hook,
 </script>
 ```
 
-But by using the "$" approach, you can avoid that boilerplate.
+But by using the "$" approach, you can avoid that boilerplate altogether.
 
 <h4>Readable Stores</h4>
-[Readable Stores][svelte readable stores] provide a centralized Store that consumers can't update - it merely provides read-only values to them.  The example in the Svelte tutorial features a readable store that maintains the current time.  They also mention you may want to use a readable store to contain the current mouse position.
+[Readable Stores][svelte readable stores] provide a centralized Store that consumers can't update - it merely provides read-only values.  The example in the Svelte tutorial features a readable store that maintains the current time.  They also mention you may want to use a readable store to contain the current mouse position.
 
 Implicit in their examples is that you'd want to use [setInterval][setinterval] method to periodically enable a refresh of your readonly store (via the "set" callback).  Quickly googling for other examples didn't reveal any other use cases.
 
@@ -222,7 +220,7 @@ function createName() {
 export const name = createName();
 ```
 
-Features like this both demonstrate to me how powerful Javascript can become, and how creatively it can be used.  Pretty cool stuff.
+Features like this both demonstrate to me the power of functional programming in Javascript, and how creatively it can be used.  Cool beans.
 
 <h4>Store Bindings</h4>
 Writeable Stores can be [bound][svelte store bindings] to components the same way as standard variables.  This offers a powerful mechanism for allowing input controls to update the values contained in your store:
@@ -239,12 +237,14 @@ Writeable Stores can be [bound][svelte store bindings] to components the same wa
 ```
 
 <h3>Summary</h3>
-So there you have it, lifecycle and stores.  We've only scratched the surface, and we are getting into more complicated territory.  While reading these topics gives you *familiarity*, in order to become proficient, you've got to roll up your sleeves and start coding.  I'd recommend doing so now - start with a simple idea, use onMount to retrieve data, and use a Store to share it around.
+So there you have it, Lifecycle and Stores.  Note, we are only scratching the surface here, and are getting into more complicated territory.  Reading these topics gives you *familiarity with the framework*.  However, in order to become proficient, you've got to roll up your sleeves and start coding.  I'd recommend doing so now - start with a simple idea, use onMount to retrieve data, and use a Store to share it around.
 
-The Svelte Ninja will be with you.  If you're like me, you will stumble.  Occasion will occur where the !@#$@ thing should JUST WORK, and ISN'T!  Maintain calm, and deepen your breath.  With patience, you will overcome obstacles like this, and the Svelte Ninja will sagely nod his head with overwhelming approval.
+The Svelte Ninja will always be with you.  If you're like most, you will occasionally stumble.  Episodes will occur where the STUPID thing should JUST WORK, and ISN'T!  
+
+Maintain calm, and deepen your breath.  With patience, you will overcome obstacles like this, and the Svelte Ninja will sagely nod his head with silent approval.  He knows this road as well, and has travelled it.  You will reach your destination!
 
 <h3>Thoughts & Notes</h3>
-* I use [Visual Studio Code][vs code] for most of my work, these posts included.  I finally started spell checking my posts last week (after discovering some embarrassing spelling errors in my published work).  As a quick and dirty measure, I copied everything into a Google Doc and used its spell checker.  However, I quickly remembered that VS Code has an extensive extension library, and looked for a spell checker.  Yes indeedly doodly, there's one [here][vs code spellcheck] 
+* I use [Visual Studio Code][vs code] for most of my work, these posts included.  I finally started spell checking my posts last week (after discovering some embarrassing spelling errors in my published work).  At first, I copied everything into a Google Doc and used its spell checker.  However, I quickly remembered that VS Code has a huge library of extensions, and looked for a spell checker.  And lo and behold, there's one [here][vs code spellcheck]!  Hopefully this will prevent future spelling mistakes...
 
 [svelte]: https://svelte.dev
 [svelte tutorial]: https://svelte.dev/tutorial/basics
@@ -273,3 +273,5 @@ The Svelte Ninja will be with you.  If you're like me, you will stumble.  Occasi
 [vs code]: https://code.visualstudio.com/
 [vs code spellcheck]: https://code.visualstudio.com/
 [ssr]: https://medium.com/@baphemot/whats-server-side-rendering-and-do-i-need-it-cb42dc059b38
+[redux]: https://redux.js.org/
+[react]: https://reactjs.org/
