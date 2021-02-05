@@ -1,46 +1,47 @@
 ---
 layout: post
 title: Computer Mice Are Devouring Your Time
-tweetText: Learn how frequently reaching for the computer mouse is killing your potential.
+tweetText: Computer mice are devouring your time.  Their insatiably hunger is killing your productivity.
 ---
 
 <h3>The Crime of the Century</h3>
-The humble [Computer mouse][computer mouse] was a revolutionary advance in the human/computer interface.  Sitting alongside the keyboard, the mouse allows "pointing" at things on screen.  And "clicking" when you'd like an action taken.  With it, windows slid around, context menus opened. 
+The humble [Computer mouse][computer mouse] was a revolutionary advance in the human/computer interface.  Sitting alongside the keyboard, the mouse allows "pointing" at things on screen.  And "clicking" when you'd like an action taken.  With it, windows slide around, context menus open.  The mouse is typically critical to people's "computer workflow".  However, it comes with a grave cost - time.
 
-The mouse is typically critical to people's "computer workflow".  However, it comes with a cost - time.  The interruptions required to switch between "systems" (keyboard typing vs mouse manipulation) are mentally expensive.  What should be nearly instantaneous ("I want to save document now") takes several seconds (5? 10? More?!).  
+The interruptions required to switch between the keyboard and mouse are mentally expensive.  Intentions that arise instantaneously ("I want to save document now!") take orders of magnitude longer to execute.  Your mental flow is paused while your brain facilitates the mouse manipulation.  Again, and again, and again.  
 
-When writing code, these "interruptions" to standard typing flow happen frequently (navigation, finding usage, finding implementations, breakpoints, etc).  While you may get *really* good with the mouse, the keyboard is orders of magnitude faster (I assume, no actual measurements taken!)
+When writing code, these "interruptions" to standard typing flow happen quite frequently (navigation, finding usage, finding implementations, breakpoints, etc).  While you may get *really* good with the mouse, the context switching brings a heavy cost.  A load upon your back that you've forgotten is there.  A weight shackled to your ankle.  
+
+It is time to shake this mouse off your back, and free yourself!
 
 <h3>An Innocent Beginning</h3>
-When learning a system, mice make things easier...at first.  You are new to the software, and don't have time to learn keyboard shortcuts (yet!).  With well designed-software, you can often learn just by clicking around.  Opening menus.  But once you know the software, keyboard shortcuts can eliminate the cost of interruptions the mouse incurs.
+When learning a system, mice make things easier (at first).  You are new to the software, and don't have time to learn keyboard shortcuts (yet!).  With well designed-software, you can often learn merely by clicking around.  Opening menus, exploring navigation.  This intuitive process provides a warm blanket, and lulls you to sleep.  But you're paying a hidden price.  Once you know the software, keyboard shortcuts offer faster execution, and eliminate interruptions the mouse requires.
 
-Why don't all people use them all the time?  Each "mouse interruptions" only takes a few seconds, while learning keyboard shortcuts could take minutes.  Hours even.  It doesn't seem "worth it" to take the time.  But if were to sum a day's worth of "mouse interruptions", they would (probably) far surpass the cost of learning keyboard shortcuts.  When you start doing that day after day (for year after year), the interruption cost skyrockets.
+Why doesn't everyone use them all the time?  Because the cost seems acceptable.  Each "mouse interruption" only takes a few seconds, while learning keyboard shortcuts could take minutes.  Hours even.  It doesn't seem "worth it" to take the time.  But if were to sum a day's worth of "mouse interruptions", they would easily surpass the cost of learning keyboard shortcuts.  When you use shortcuts day after day (and year after year), the savings in interruption costs skyrockets.
 
-It's like a subscription to that site you signed up for years ago, forgotten, costing $2.99 a month for eternity.  All the while, your time slips away.  "Where do the years go?", you type.  Then you reach for the mouse, slide the pointer up the screen, and click the "send" button.  
+It's like a subscription to that site you signed up for years ago, forgotten, costing $2.99 a month for eternity.  Too much trouble to track down the cancellation mechanism, so you keep paying.  And it keeps adding up.
+
+So you keep using the mouse.  All the while, your time slips away.  "Where do the years go?", you type in an email.  "How did we get so old?"  Then you reach for the mouse, slide the pointer up the screen, and click the "send" button.  
 
 <h3>The Forgotten Path</h3>
-Ah, the keyboard.  Descendend from the noble typewriter, and perfectly matched to your hands.  You are already using it for the majority of your work.  You might even be a fast typer.  But if you rely on the mouse, the chain of mouse interruptions hangs around your neck.
+Ah, the keyboard.  Descended from the noble typewriter, and perfectly matched to your hands.  You are already using it for the majority of your work.  Infinite combinations await - you "barely have to lift a finger".  You can create any word in the blink of an eye.  With combinations, the possibilities skyrocket.  Any intention under the sun can be captured with a few fingers.
 
-The mouse involves moving your big arm around, and clicking with a single finger.  Keyboard provides infinite combinations, triggered by any of your fingers.  Keyboard shortcuts make you more productive.  You literally "barely have to lift a finger".
+The mouse involves moving your big arm around, and clicking with a single finger.  We think it's easy, because our brain performs the heavy lifting.  But under the covers, it's a complex synchronization of tens of muscles.  Big muscles are involved, bringing a much larger expenditure of energy.  Joints are called upon to support the additional weight.  Flow stops each time.  Again, and again, and again.
 
 <h3>Tortoise vs the Hare</h3>
 It may be helpful to provide an example scenario, and illustrate why the keyboard is a far superior for your computer input needs.  
 
-Let's say you're typing a document (thanks, keyboard), and you need to save your work.  Who hasn't lost work because they took too long between saves (at least, in the days before cloud-based tools).  The experienced document writer knows to save early and often!  Here's what that looks like in two worlds.
+Let's say you're typing a document (thanks to your trusted keyboard), and you need to save your work.  Who hasn't lost work because they took too long between saves?  The experienced document writer knows to save early and often!  
 
-Mouse User:  (think the scene from "[Zootopia][zootopia]" in the DMV with Flash the Sloth).  After an extended series of typing on the keyboard to record complicated thoughts (what psycho would use mouse clicks for *that* ?), your internal clock realizes you haven't saved for a bit.  Your brain pauses it's "type on keyboard" neural pattern, and activates the "move mouse" program.  Slowly your large arm is lifted, moves your hand to the mouse, then lowers it to the mouse surface.  Your skin and hand register that contact has been made, and dutifully report as much to the brain.  Delighted, your brain heightens attention on the visual cortex subsystem, and moves to eyes to the location on the screen where "Save" can be accessed.  Once acquired, the arm/hand system begin sliding in a particular direction, and the mouse pointer begins it's slow climb up the screen.  You tongue begins to slide between your lips, an old habit of concentration you picked up from Michael Jordan.  If all goes well, an upcoming series of algorithm executions will result in the computer "Save" functionality to trigger.  I'm skipping the remaining steps because there are alot of them, and you get the picture.  Exciting, exciting times!
+Here's what that looks like in two worlds:
+
+Mouse User (imagine the scene from "[Zootopia][zootopia]" in the DMV with Flash the Sloth):  After an extended series of typing on the keyboard to record complicated thoughts, your internal clock realizes you haven't saved for a bit.  Your brain pauses it's "type on keyboard" neural pattern, and activates the "move mouse" program.  Slowly, your gigantic arm lifts, moves your hand to the mouse, and lowers it to the mouse surface.  Your skin and hand register that contact has been made, and dutifully report the sensation to your brain.  Delighted, your brain heightens attention on the visual cortex subsystem, pivoting your eyes to the "Save" button's location on the screen.  Once the target button is acquired, the arm/wrist/hand system begin sliding in a particular direction, and the mouse pointer begins climbing up the screen.  Eons later, the pointer arrives at the intended destination.  Your brain has been waiting for this moment - the "index finger click" algorithm is now triggered.  At great expense to the stability of your carpal tunnel, your finger presses down on the resistant left mouse button.  The document is saved, panic subsides!  Your brain can now revert to keyboard mode, and hopefully pick up the thread where you left off.
 
 Keyboard User:  Ctrl-S.  You don't even need to interrupt your mind flow.  Just interjecting a quick command for the computer to take action.  Streamlined, immediate, orders of magnitude faster.
 
-<h3>Memory vs Disk</h3>
-Speaking of orders of magnitude...TODO - disk access times vs memory
+Is there any contest here?  Your brain on mice is swimming across the ocean, when there's a cruise ship available.  You are pulling information from a network call, when you already have it in memory.  Orders of magnitude faster, people.  Again, and again, and again.
 
-<h3>Why Is It This Way?</h3>
-TODO - Learning curve 
-
-<h3>Unleash your Fingers!</h3>
-TODO - how to switch
-
+<h3>Unleash your Fingers' Potential!</h3>
+I hope this piece has awoken your mind to your true potential.  Your brain stoically carries the weight of the mouse, and may even think it's the better choice.  But hopefully now you know better.  Time for you to convince your brain of a better path.
 
 <h3>Thoughts & Notes</h3>
 
