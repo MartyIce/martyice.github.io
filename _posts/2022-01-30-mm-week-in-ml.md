@@ -1,7 +1,7 @@
 ---
 layout: post
-title: My Week in ML, 1/31/2022
-tweetText: My Week in ML, 1/31/2022 - Wading through Neural Nets
+title: My Week in ML, 1/30/2022
+tweetText: My Week in ML, 1/30/2022 - Wading through Neural Nets
 ---
 
 <h3>Neural Nets!</h3>
