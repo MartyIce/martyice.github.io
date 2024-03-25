@@ -41,3 +41,32 @@ div.social-button {
 	position: absolute;
 	left: 100px;
 }
+div.chatgpt-answer {
+	padding-top: 5px;
+	white-space: pre-wrap; /* Preserve line breaks and spaces */
+}
+/* Style the summary (question) */
+summary {
+	font-weight: bold;
+	font-style: italic;
+	cursor: pointer;
+}
+
+/* Style the details (answer) */
+details {
+	margin-bottom: 10px;
+	white-space: pre-wrap; /* Preserve line breaks and spaces */
+}
+
+/* Style the details content (answer) */
+details > * {
+	margin: 5px 0;
+	white-space: normal; /* Reset white-space property */
+}
+
+/* Customize the background color of the answer */
+details > *:not(summary) {
+	background-color: #f9f9f9;
+	padding: 5px 10px;
+	border-radius: 5px;
+}
