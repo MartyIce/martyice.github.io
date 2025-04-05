@@ -3,6 +3,8 @@ layout: post
 title: Vibe Coding a Guitar Tablature App
 tweetText: Vibe Coding a Guitar Tablature App
 ---
+<h3>TLDR</h3>
+Here's the [app][string_slinger] if you don't want to read through my wit below.
 
 <h3>Vibe Coding!</h3>
 The whole world is abuzz with talk of AI, especially within the Software industry. And one specifically hot topic is [Vibe Coding][vibe_coding], where you just allow AI to write all the code. We still need a human for the prompting and overall direction, but no coding skills are required. Any old human will do.
